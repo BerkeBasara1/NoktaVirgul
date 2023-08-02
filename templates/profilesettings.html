@@ -1,0 +1,30 @@
+{% include "includes/navbar.html" %}
+{% extends "layout.html" %}
+{% block body %}
+{% from "includes/formshelpers.html" import render_field %}
+<div class = "container">
+<h3>Profil Bilgileri</h3>
+<br>
+<small>Profil Bilgilerinizi burada görüntüleyebilir, bazı değişiklikler yapabilirsiniz.</small>
+<br>
+<small>Eğer yanlış bilgiler mevcut ise ve değiştiremiyorsanız, lütfen IT Departmanı ile iletişime geçin.</small>
+<br>
+<hr>
+<br>
+<form method = "post" style="text-align:center;">
+  <label>Adınız: {{session["name"]}}</label>
+  <br>
+  <label>Soyadınız: {{session["surname"]}}</label>
+  <br>
+  <label>Kullanıcı Adı: {{session["username"]}}</label>
+  <br>
+  <label>email: {{session["email"]}}</label>
+  <br>
+  <label>Departman: {{session["departman"]}}</label>
+  <br>
+  <small><a href="/password&change" style="color:#0E3A2F;">Şifre değiştirme</a></small>
+
+  
+</form>
+</div>
+{% endblock body %}

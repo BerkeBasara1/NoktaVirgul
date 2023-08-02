@@ -1,0 +1,46 @@
+{% include "includes/navbar.html" %}
+{% extends "layout.html" %}
+{% block body %}
+<div class = "container">
+<br>
+    <h3>Size sunulan RPA hizmetleri:</h3>
+    <small>Kullanımınıza uygun olan Otomasyon sürecini seçebilirsiniz.</small>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    {% if session["departman"] == "Satış" or session["departman"] == "Bilgi Teknolojileri" %}
+        <br>
+        <a href="/sabahraporu" style="color:#0E3A2F"><h3>&rarr; Sabah Raporu gönderme</h3></a>
+        <small>Satış Departmanının haftaiçi her sabah bütün şirket çalışanları ve yöneticilerine gönderilen Satış Raporu Otomasyonu</small>
+        <br>
+        <br>
+        <hr>
+    {% endif %}
+    {% if session["departman"] == "Satış" or session["departman"] == "Bilgi Teknolojileri" %}
+        <br>
+        <a href="/aksamraporu" style="color:#0E3A2F"><h3>&rarr; Akşam Raporu gönderme</h3></a>
+        <small>Satış Departmanının haftaiçi her akşam bütün şirket çalışanları ve yöneticilerine gönderilen Satış Adetleri Raporu Otomasyonu</small>
+        <br>
+        <br>
+        <hr>
+    {% endif %}
+    {% if session["departman"] == "SSH" or session["departman"] == "Bilgi Teknolojileri" %}
+        <br>
+        <a href="/sshparcaraporu" style="color:#0E3A2F"><h3>&rarr; Günlük Perakende Parça Satış Raporu gönderme</h3></a>
+        <small>SSH Departmanının haftaiçi her sabah bütün şirket çalışanları ve yöneticilerine gönderilen Günlük Perakende Parça Satış Raporu Raporu Otomasyonu</small>
+        <br>
+        <br>
+        <hr>
+    {% endif %}
+    {% if session["departman"] == "Strateji ve Planlama" or session["departman"] == "Bilgi Teknolojileri" %}
+        <br>
+        <a href="/planlama_pcl_pdf" style="color:#0E3A2F"><h3>&rarr; Araç Faturalarının PDF'lerini bulma</h3></a>
+        <small>Fatura no veya Şasi no aratarak istenilen araçların 3faturalarını PDF formatında dosyaya kaydetmek için kullanılan otomasyon</small>
+        <br>
+        <br>
+        <hr>
+    {% endif %}
+</div>
+{% endblock body %}

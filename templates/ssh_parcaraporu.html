@@ -1,0 +1,27 @@
+{% include "includes/navbar.html" %}
+{% extends "layout.html" %}
+{% block body %}
+{% from "includes/formshelpers.html" import render_field %}
+<div class = "container">
+    <h3 style="color:#0E3A2F">Günlük Perakende Parça Satış Raporu Otomasyonu</h3>
+    <br>
+    <small style="color:#0E3A2F">Aşağıdaki formu tam ve doğru şekilde doldurduktan sonra butona basarak Günlük Perakende Parça Satış Raporunu eposta olarak gönderebilirsiniz.</small>
+    <br>
+    <small style="color:#0E3A2F">Lütfen gönderdikten sonra bir süre bekleyin, raporlar Dora'dan çekildiği için raporun hazırlanması zaman alıyor.</small>
+    <br>
+    <hr>
+    <br>
+    <div style="display:flex; justify-content:center;">
+    <form method = "post" style="text-align:center;" enctype="multipart/form-data">
+        {{ render_field(form.turkuazusername, class = "form-control") }}
+        {{ render_field(form.turkuazpw, class = "form-control") }}
+        <br>
+        {{ render_field(form.first_day_check, class = "form-control") }}
+
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary" style="background:#0E3A2F; color:#78FAAE; border-radius:10px">Parça Satış Raporunu Gönder!</button>
+    </form>
+</div>
+</div>
+{% endblock body %}

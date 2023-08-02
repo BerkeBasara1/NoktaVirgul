@@ -1,0 +1,34 @@
+{% include "includes/navbar.html" %}
+{% extends "layout.html" %}
+{% block body %}
+{% from "includes/formshelpers.html" import render_field %}
+<div class = "container">
+    <h3 style="color:#0E3A2F">Faturaları PDF formatta bulma</h3>
+    <br>
+    <br>
+    <small style="color:#0E3A2F">İhtiyacınız olan faturaları PDF formatta bir dosya içinde toplamak için kullanabilirsiniz.</small>
+    <br>
+    <br>
+    <small style="color:#0E3A2F">Lütfen Excel dosyayı yükleyiniz.</small>
+    <small style="color:#0E3A2F">Yüklenen Excel'de verilerin "Sheet1" isimli bir sayfada olduğundan emin olunuz.</small>
+    <small style="color:#0E3A2F">Verilerin 'A' sütununda olduğundan ve şasi no veya fatura no dışında bir değer olmadığından emin olunuz.</small>
+    <small style="color:#0E3A2F">Her bir hücrede fatura no için 8 hane, Şasi no için 17 haneli veri olduğundan emin olunuz.</small>
+    <br>
+    <br>
+    <small style="color:#0E3A2F">Oluşturulacak Dosya ismini ismini giriniz ve "Çalıştır" butonuna basınız.</small>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <div style="display:flex; justify-content:center;">
+    <form method = "post" style="text-align:center;" enctype="multipart/form-data">
+        {{ render_field(form.file1, class = "form-control") }}
+        <br>
+        {{ render_field(form.dosya_adi, class = "form-control") }}
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary" style="background:#0E3A2F; color:#78FAAE; border-radius:10px">Faturaları bul</button>
+    </form>
+</div>
+</div>
+{% endblock body %}

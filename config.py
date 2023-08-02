@@ -1,0 +1,5 @@
+mailName = 'sabahraporu@skoda.com.tr'
+aksamrapor_mailName = 'aksamraporu@skoda.com.tr'
+mailPassword = 'sabahraporu123'
+Skoda_Satis_Stok_Raporu = r'C:\Users\yuceappadmin\Downloads\Skoda Satış Stok Raporu.xlsx'
+Model_Kirilimli = r'C:\Users\yuceappadmin\Downloads\Model_Kirilimli.xls'

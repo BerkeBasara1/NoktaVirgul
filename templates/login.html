@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block body %}
+{% from "includes/formshelpers.html" import render_field %}
+<body style="background-color: #0E3A2F;">
+<div style="background-color: #0E3A2F;">
+    <div style="text-align:center;">
+        <img src="https://cdn.skoda-storyboard.com/2022/08/Header_Nove_logo.jpg" alt="Yüce Auto" style="width: 1250px; height: 285px;">
+    </div>
+    <div class="container">
+        <div style="color:#78FAAE; text-align:center">
+            <div class="container">
+                <form method="post">
+                    <h3 style="color:#78FAAE;">Giriş Yap</h3>
+                    <br>
+                    {{ render_field(form.username) }}
+                    <br>
+                    {{ render_field(form.password) }}
+                    <br>
+                    <button type="submit" class="btn btn-primary" style="background:#78FAAE; color:#0E3A2F; border-radius:10px;"><b>Giriş yap</b></button>
+                </form>
+            </div>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock body %}
