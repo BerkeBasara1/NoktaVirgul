@@ -168,6 +168,8 @@ class PclPdfForm(Form):
 @app.route("/planlama_pcl_pdf", methods = ["GET", "POST"])
 @login_required
 def PclPdfJob():
+    from pcl_pdf_excel_funcs import read_column_to_list
+
     form = PclPdfForm(request.form)
     if request.method == "POST":
         file1 = form.file1.data
@@ -178,9 +180,41 @@ def PclPdfJob():
         if file1:  # Check if a file was uploaded
             filename = secure_filename(file1.filename)
             file1.save(os.path.join('templates', 'Excel_attachment', filename))
+            try:
+                values_to_be_searched = read_column_to_list("templates\Excel_attachment" + r"\ ".replace(" ","") + filename)
+            except:
+                flash("Excel Dosyasını okurken bir hata oluştu.", "danger")
+                return redirect(url_for("index"))
+            
+            values = []
+            for value in values_to_be_searched:
+                values.append(str(value))
+            
+            faulty_input_list = [] # The list of input values that are not "FaturaNo" or "ŞasiNo"
+            correct_inputs_list = [] # Inputs that have 8 or 17 length, correct format
 
-        flash("Başarılı", "success")
-        return redirect(url_for("index"))
+            for value in values:
+                if len(value) == 8 or len(value) == 17:
+                    correct_inputs_list.append(value)
+                else:
+                    faulty_input_list.append(value)
+
+            correct_inputs_length = len(correct_inputs_list)
+            faulty_inputs_length = len(faulty_input_list)
+            total_inputs_length = len(correct_inputs_list) + len(faulty_input_list)
+            
+            
+
+            
+
+
+            flash("Başarılı", "success")
+            return redirect(url_for("index"))
+        
+        else:
+            flash("Hata oluştu", "danger")
+            return redirect(url_for("index"))
+        
     elif request.method == "GET":
         return render_template("planlama_pcl_pdf.html", form=form)
     else:
