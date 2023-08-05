@@ -7,7 +7,7 @@ from django.forms import FileField
 from django.shortcuts import render
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
 from flask_mysqldb import MySQL
-from wtforms import Form, StringField, TextAreaField, SelectField, PasswordField, FileField, validators, BooleanField, SubmitField
+from wtforms import Form, StringField, TextAreaField, SelectField, PasswordField, FileField, validators, BooleanField, SubmitField, ValidationError
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileRequired
 from passlib.hash import sha256_crypt
@@ -163,12 +163,14 @@ class PclPdfForm(Form):
     file1 = FileField('Excel dosyasını yükle', validators=[FileRequired()])
     dosya_adi = StringField("Oluşturulacak Dosya Adı", render_kw={'style': 'width: 42ch; border-radius:10px; border-color:black;'})
     submit = SubmitField('Upload')
+    # r'[\/:*?"<>|.]'
 
 # PCL/PDF job
 @app.route("/planlama_pcl_pdf", methods = ["GET", "POST"])
 @login_required
 def PclPdfJob():
     from pcl_pdf_excel_funcs import read_column_to_list
+    from pcl_pdf_funcs import carry_invoice_PDFs, split_pdf_pages, extract_data_from_pdf, rename_pdf, pdf_folder_job, search_and_copy_files, count_files_in_folder
 
     form = PclPdfForm(request.form)
     if request.method == "POST":
@@ -176,6 +178,35 @@ def PclPdfJob():
         dosya_adi = form.dosya_adi.data
         
         file1 = request.files['file1']
+
+        # Finds the new PDFs in given directory
+        def RunGhostscript_in(dosya_ismi):
+            # 20230801 Last scraped
+            #dosya_ismi = r'\PCL\20230801' # Yuce Auto ortakta pcl5'lerin olduğu dosyanın ismi
+
+            yuce_auto_path = r"Y:\YUCE AUTO GENEL"
+            tot_path = yuce_auto_path + "\\" + dosya_ismi
+            ghost_script_exe_path = r"Desktop\GhostScript\ghostpcl-10.01.1-win64\ghostpcl-10.01.1-win64\gpcl6win64.exe"
+            carry_invoice_PDFs(tot_path, ghost_script_exe_path)
+
+            i = 0
+            while True: # Creates a new pdf for each page of the current PDF
+                try:
+                    i += 1
+                    split_pdf_pages("{}.pdf".format(str(i)))
+                    j = 0
+                    while True:  # Renames the PDF to invoice_VIN_date format
+                        try:
+                            j += 1
+                            pdf_name = 'page_{}.pdf'.format(str(j))
+                            invoice_no, despatch_date, VIN = extract_data_from_pdf(pdf_name)
+                            despatch_date = despatch_date.replace(".", "")
+                            new_file_name = invoice_no + "_" + VIN + "_" + despatch_date
+                            rename_pdf(pdf_name, new_file_name)
+                        except:
+                            break
+                except:
+                    break
 
         if file1:  # Check if a file was uploaded
             filename = secure_filename(file1.filename)
@@ -205,10 +236,29 @@ def PclPdfJob():
             
             
 
+            pdf_folder_job("pcl_pdf_pdfs")
+            ortak_alan_path = r"Y:\YUCE AUTO GENEL\RPA"
+
+            new_folder_path = os.path.join(ortak_alan_path, dosya_adi)
+
+            # Create the new folder
+            os.makedirs(new_folder_path)
+            end_file = ortak_alan_path + r"\ ".replace(" ","") + dosya_adi
+            for substr in correct_inputs_list:
+                search_and_copy_files("pcl_pdf_pdfs", end_file, substr)
             
+            amount_of_found_invoices = count_files_in_folder(ortak_alan_path + r"\ ".replace(" ","") + dosya_adi)
 
+            message1 = "Toplam {} tane fatura için program başarıyla çalıştı".format(total_inputs_length)
+            flash(message1, "success")
 
-            flash("Başarılı", "success")
+            message2 = "Girdiğiniz excelde {} tane satırda hata var.".format(faulty_inputs_length)
+            flash(message2, "warning")
+
+            message3 = "{} adet fatura bulundu".format(amount_of_found_invoices)
+            flash(message3, "success")
+            # Bulunamayan faturaları da bi' şekilde sunmak lazım
+            
             return redirect(url_for("index"))
         
         else:
