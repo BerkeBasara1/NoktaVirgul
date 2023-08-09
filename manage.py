@@ -88,7 +88,7 @@ class RegisterForm(Form):
     email = StringField("Email Adresi", validators = [validators.Email(message = "Lütfen Geçerli bir email adresi giriniz.")])
     password = PasswordField("Şifre:", validators=[validators.DataRequired(message = "Lütfen şifre giriniz."), validators.EqualTo(fieldname = "confirm", message = "Şifreniz uyuşmuyor.")])
     confirm = PasswordField("Şifre Doğrulama")
-    department = SelectField('Departman', choices=[('Bilgi Teknolojileri', 'Bilgi Teknolojileri'), ('Satış', 'Satış'), ('SSH', 'SSH'), ('Strateji ve Planlama', 'Strateji ve Planlama'), ('İş Geliştirme', 'İş Geliştirme')])
+    department = SelectField('Departman', choices=[('Bilgi Teknolojileri', 'Bilgi Teknolojileri'), ('Satış', 'Satış'), ('SSH', 'SSH'), ('Strateji ve Planlama', 'Strateji ve Planlama'), ('Ürün', 'Ürün'), ('İş Geliştirme', 'İş Geliştirme')])
 
 # Kullanıcı Kayıt Sayfası
 @app.route("/register", methods = ["GET", "POST"])
@@ -238,7 +238,7 @@ def PclPdfJob():
 
             pdf_folder_job("pcl_pdf_pdfs")
             ortak_alan_path = r"Y:\YUCE AUTO GENEL\RPA"
-
+            path_to_access = "\\yucefile\data\YUCE AUTO GENEL\RPA" + "\ ".replace(" ","") + dosya_adi
             new_folder_path = os.path.join(ortak_alan_path, dosya_adi)
 
             # Create the new folder
@@ -255,7 +255,7 @@ def PclPdfJob():
             message2 = "Girdiğiniz excelde {} tane satırda hata var.".format(faulty_inputs_length)
             flash(message2, "warning")
 
-            message3 = "{} adet fatura bulundu".format(amount_of_found_invoices)
+            message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : {}".format(amount_of_found_invoices, path_to_access)
             flash(message3, "success")
             # Bulunamayan faturaları da bi' şekilde sunmak lazım
             
@@ -355,6 +355,13 @@ def aksamRaporu():
 
     else:
         return redirect(url_for("aksamraporu"))
+
+
+# Ürün RPA
+@app.route("/urun_rpa", methods = ["GET", "POST"])
+@login_required
+def UrunRPA():
+    return render_template("urun_rpa.html")
 
 # Logout işlemi
 @app.route("/logout")

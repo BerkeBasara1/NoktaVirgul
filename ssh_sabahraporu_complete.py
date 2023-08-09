@@ -50,43 +50,58 @@ def SSH_sabahraporu_complete(Turkuaz_username, Turkuaz_password, first_day_check
         howmanydaysleft_ = 0
 
 
-    #TurkuazDataReader1(Turkuaz_username, Turkuaz_password, last_day_worked, last_day_worked)
-    #RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls", "Iscilik_Parca_SonCalisilanGun_Raporu.xls")
-    İsemri_Adedi, ServisGiris = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_SonCalisilanGun_Raporu.xls", 'Marka Bazlı Fatura Detayları')
-    isEmri_Gun, Garanti_Gun = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_SonCalisilanGun_Raporu.xls", 'Marka Bazlı Fatura Detayları')
-    #os.remove(r"C:\Users\dogao\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls")
+    try:
+        İsemri_Adedi, ServisGiris = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_SonCalisilanGun_Raporu.xls", 'Marka Bazlı Fatura Detayları')
+        isEmri_Gun, Garanti_Gun = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_SonCalisilanGun_Raporu.xls", 'Marka Bazlı Fatura Detayları')
+    except:
+        TurkuazDataReader1(Turkuaz_username, Turkuaz_password, last_day_worked, last_day_worked)
+        RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls", "Iscilik_Parca_SonCalisilanGun_Raporu.xls")
+        İsemri_Adedi, ServisGiris = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_SonCalisilanGun_Raporu.xls", 'Marka Bazlı Fatura Detayları')
+        isEmri_Gun, Garanti_Gun = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_SonCalisilanGun_Raporu.xls", 'Marka Bazlı Fatura Detayları')
 
 
-    #TurkuazDataReader1(Turkuaz_username, Turkuaz_password, start_day_last_year, last_year_end_date)
-    #RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls", "Iscilik_Parca_GecenSeneAylik_Rapor.xls")
-    İsemri_Adedi_Gecensene, ServisGiris_Gecensene = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_GecenSeneAylik_Rapor.xls", 'Marka Bazlı Fatura Detayları')
-    isEmri_Gecensene, Garanti_Gecensene = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_GecenSeneAylik_Rapor.xls", 'Marka Bazlı Fatura Detayları')
-    #os.remove(r"C:\Users\dogao\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls")
+    try:
+        İsemri_Adedi_Gecensene, ServisGiris_Gecensene = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_GecenSeneAylik_Rapor.xls", 'Marka Bazlı Fatura Detayları')
+        isEmri_Gecensene, Garanti_Gecensene = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_GecenSeneAylik_Rapor.xls", 'Marka Bazlı Fatura Detayları')
+    except:
+        TurkuazDataReader1(Turkuaz_username, Turkuaz_password, start_day_last_year, last_year_end_date)
+        RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls", "Iscilik_Parca_GecenSeneAylik_Rapor.xls")
+        İsemri_Adedi_Gecensene, ServisGiris_Gecensene = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_GecenSeneAylik_Rapor.xls", 'Marka Bazlı Fatura Detayları')
+        isEmri_Gecensene, Garanti_Gecensene = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_GecenSeneAylik_Rapor.xls", 'Marka Bazlı Fatura Detayları')
+
     
-
-    #TurkuazDataReader1(Turkuaz_username, Turkuaz_password, start_day_thismonth_thisyear, last_day_worked)
-    #RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls", "Iscilik_Parca_BuAyKumule_Rapor.xls")
-    İsemri_Adedi_Ay, ServisGiris_Ay = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_BuAyKumule_Rapor.xls", 'Marka Bazlı Fatura Detayları')
-    isEmri_Ay, Garanti_Ay = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_BuAyKumule_Rapor.xls", 'Marka Bazlı Fatura Detayları')
-    #os.remove(r"C:\Users\dogao\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls")
-
-
-    #ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, last_day_worked, last_day_worked) # Downloads The excel starting date : lastwork_day, ending date: lastwork_day
-    #RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls", "ParcaSatis_SonCalisilanGun_Raporu.xls")
-    Banko_son_gun = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_SonCalisilanGun_Raporu.xls", "BANKO")
-    #os.remove(r"C:\Users\dogao\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls")
+    try:
+        İsemri_Adedi_Ay, ServisGiris_Ay = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_BuAyKumule_Rapor.xls", 'Marka Bazlı Fatura Detayları')
+        isEmri_Ay, Garanti_Ay = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_BuAyKumule_Rapor.xls", 'Marka Bazlı Fatura Detayları')
+    except:
+        TurkuazDataReader1(Turkuaz_username, Turkuaz_password, start_day_thismonth_thisyear, last_day_worked)
+        RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\SSH-IPI-DPU-008+İşçilik+ve+Parça+Gelirleri.xls", "Iscilik_Parca_BuAyKumule_Rapor.xls")
+        İsemri_Adedi_Ay, ServisGiris_Ay = Read_SSH_Iscilik_ParcaGelirleri_Excel(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_BuAyKumule_Rapor.xls", 'Marka Bazlı Fatura Detayları')
+        isEmri_Ay, Garanti_Ay = Read_SSH_Iscilik_ParcaGelirleri_Excel2(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_BuAyKumule_Rapor.xls", 'Marka Bazlı Fatura Detayları')
 
 
-    #ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, start_day_last_year, last_year_end_date) # Downloads The excel starting date : first day of this month last year, ending date: Chosen with func
-    #RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls", "ParcaSatis_GecenSeneAylik_Rapor.xls")
-    Banko_kumule_gecensene = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_GecenSeneAylik_Rapor.xls", "BANKO")
-    #os.remove(r"C:\Users\dogao\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls")
+    try:
+        Banko_son_gun = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_SonCalisilanGun_Raporu.xls", "BANKO")
+    except:
+        ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, last_day_worked, last_day_worked) # Downloads The excel starting date : lastwork_day, ending date: lastwork_day
+        RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls", "ParcaSatis_SonCalisilanGun_Raporu.xls")
+        Banko_son_gun = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_SonCalisilanGun_Raporu.xls", "BANKO")
 
 
-    #ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, start_day_thismonth_thisyear, last_day_worked)
-    #RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls", "ParcaSatis_BuAyKumule_Rapor.xls")
-    Banko_kumule_busene = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_BuAyKumule_Rapor.xls", "BANKO")
-    #os.remove(r"C:\Users\dogao\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls")
+    try:
+        Banko_kumule_gecensene = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_GecenSeneAylik_Rapor.xls", "BANKO")
+    except:
+        ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, start_day_last_year, last_year_end_date) # Downloads The excel starting date : first day of this month last year, ending date: Chosen with func
+        RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls", "ParcaSatis_GecenSeneAylik_Rapor.xls")
+        Banko_kumule_gecensene = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_GecenSeneAylik_Rapor.xls", "BANKO")
+
+
+    try:
+        Banko_kumule_busene = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_BuAyKumule_Rapor.xls", "BANKO")
+    except:
+        ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, start_day_thismonth_thisyear, last_day_worked)
+        RenameFile_in_a_path(r"C:\Users\yuceappadmin\Downloads\PRC-YSA-GBU-007+SSH+Parça+Satış.xls", "ParcaSatis_BuAyKumule_Rapor.xls")
+        Banko_kumule_busene = Read_SSH_ParcaSatis_Excel(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_BuAyKumule_Rapor.xls", "BANKO")
 
 
     Toplam_day = isEmri_Gun + Garanti_Gun + Banko_son_gun + ServisGiris
@@ -187,6 +202,7 @@ def SSH_sabahraporu_complete(Turkuaz_username, Turkuaz_password, first_day_check
     send_email(content, 'Günlük Perakende Parça Satış Raporu', 'busray@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
     send_email(content, 'Günlük Perakende Parça Satış Raporu', 'afizeo@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
     send_email(content, 'Günlük Perakende Parça Satış Raporu', 'b.gerzeli@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
+    send_email(content, 'Günlük Perakende Parça Satış Raporu', 'stj_b.basara@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
     #send_email(content, 'Günlük Perakende Parça Satış Raporu', 'dogao@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
 
     os.remove("isemri_figure.png")
@@ -194,4 +210,12 @@ def SSH_sabahraporu_complete(Turkuaz_username, Turkuaz_password, first_day_check
     os.remove("bargraph.png")
     os.remove("ParcaSatis_graph.png")
     os.remove("ServisGiris_graph.png")
+
+    os.remove(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_SonCalisilanGun_Raporu.xls")
+    os.remove(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_GecenSeneAylik_Rapor.xls")
+    os.remove(r"C:\Users\yuceappadmin\Downloads\Iscilik_Parca_BuAyKumule_Rapor.xls")
+
+    os.remove(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_SonCalisilanGun_Raporu.xls")
+    os.remove(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_GecenSeneAylik_Rapor.xls")
+    os.remove(r"C:\Users\yuceappadmin\Downloads\ParcaSatis_BuAyKumule_Rapor.xls")
 
