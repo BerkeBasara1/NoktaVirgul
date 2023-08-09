@@ -349,6 +349,7 @@ def aksamRaporu():
 
         flash("Akşam Raporu başarıyla gönderildi.", "success")
         return redirect(url_for("index"))
+    
 
     elif request.method == "GET":
         return render_template("aksamraporu.html", form=form)
@@ -362,6 +363,26 @@ def aksamRaporu():
 @login_required
 def UrunRPA():
     return render_template("urun_rpa.html")
+
+class jato_form(Form):
+    file1 = FileField('Excel dosyasını yükle', validators=[FileRequired()])
+
+@app.route("/jato_rpa", methods = ["GET", "POST"])
+@login_required
+def Jato_RPA():
+    form = jato_form(request.form)
+    if request.method == "GET":
+        return render_template("jato_rpa.html", form=form)
+    elif request.method == "POST":
+        file1 = form.file1.data
+        file1 = request.files['file1']
+        if file1:  # Check if a file was uploaded
+            filename = secure_filename(file1.filename)
+            file1.save(os.path.join('templates', 'Excel_attachment', filename))
+            flash("Excel başarıyla yüklendi!","success")
+            return redirect(url_for("index"))
+        else:
+            pass    
 
 # Logout işlemi
 @app.route("/logout")
