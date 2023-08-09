@@ -601,6 +601,7 @@ def AksamRaporuComplete(turkuazusername, turkuazpw):
     send_email(email_content, "Akşam raporu", "aslis@skoda.com.tr", cc_email="dogao@skoda.com.tr", sender_email='aksamraporu@skoda.com.tr')
     send_email(email_content, "Akşam raporu", "afizeo@skoda.com.tr", sender_email='aksamraporu@skoda.com.tr')
     send_email(email_content, "Akşam raporu", "busray@skoda.com.tr", sender_email='aksamraporu@skoda.com.tr')
+    send_email(email_content, "Akşam raporu", "stj_b.basara@skoda.com.tr", sender_email='aksamraporu@skoda.com.tr')
 
     os.remove('Gelen_Musteri_Telefon_Graph.png')
     #os.remove('Baglanti_Graph.png')

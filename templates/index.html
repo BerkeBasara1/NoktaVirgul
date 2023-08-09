@@ -42,5 +42,13 @@
         <br>
         <hr>
     {% endif %}
+    {% if session["departman"] == "Ürün" or session["departman"] == "Bilgi Teknolojileri" %}
+        <br>
+        <a href="/urun_rpa" style="color:#0E3A2F"><h3>&rarr; Pazar verileri toplama otomasyonu</h3></a>
+        <small>Otomotiv sektöründeki güncel fiyatları almak için kullanılan otomasyon. Eğer güncel verilerde değişim varsa Ürün departmanına bilgi geçer.</small>
+        <br>
+        <br>
+        <hr>
+    {% endif %}
 </div>
 {% endblock body %}

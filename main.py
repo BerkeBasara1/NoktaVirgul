@@ -200,6 +200,7 @@ def SabahRaporuComplete(turkuazusername, turkuazpassword, ithalat, fatura, Euro_
     send_email(mail_index, mail_header, "aslis@skoda.com.tr", cc_email="dogao@skoda.com.tr")
     send_email(mail_index, mail_header, "afizeo@skoda.com.tr")
     send_email(mail_index, mail_header, "busray@skoda.com.tr")
+    send_email(mail_index, mail_header, "stj_b.basara@skoda.com.tr")
     #send_email(mail_index, mail_header, "dogao@skoda.com.tr")
     
 
