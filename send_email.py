@@ -5,7 +5,7 @@ from config import *
 
 def send_email(content, subject, receiver_email, cc_email=None, sender_email = 'sabahraporu@skoda.com.tr'):
     sender_email = sender_email
-    password = mailPassword
+    #password = mailPassword
 
     message = MIMEText(content, "html")
 

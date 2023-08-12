@@ -1,7 +1,4 @@
 import os
-import sys
-import email
-from click import password_option
 from django.apps import AppConfig
 from django.forms import FileField
 from django.shortcuts import render
@@ -12,12 +9,13 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileRequired
 from passlib.hash import sha256_crypt
 from functools import wraps
-from datetime import datetime
 
 from werkzeug.utils import secure_filename
 from main import SabahRaporuComplete
 from aksamraporu import AksamRaporuComplete
 from ssh_sabahraporu_complete import SSH_sabahraporu_complete
+from urun_excel_funcs import *
+from urun_Scrapers import *
 
 
 app = Flask(__name__)
@@ -255,7 +253,7 @@ def PclPdfJob():
             message2 = "Girdiğiniz excelde {} tane satırda hata var.".format(faulty_inputs_length)
             flash(message2, "warning")
 
-            message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : {}".format(amount_of_found_invoices, path_to_access)
+            message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : Y:\YUCE AUTO GENEL\RPA\ ".format(amount_of_found_invoices)
             flash(message3, "success")
             # Bulunamayan faturaları da bi' şekilde sunmak lazım
             
@@ -357,12 +355,47 @@ def aksamRaporu():
     else:
         return redirect(url_for("aksamraporu"))
 
-
 # Ürün RPA
 @app.route("/urun_rpa", methods = ["GET", "POST"])
 @login_required
 def UrunRPA():
     return render_template("urun_rpa.html")
+
+@app.route("/fiyat_guncelleme/DS")
+@login_required
+def call_DS_scraper():
+    amount_of_cars_inserted = DS_scraper()
+    result = update_excel_file_('DS')
+
+    if result == 1:
+        flash("DS Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("DS Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Peugeot")
+@login_required
+def call_Peugeot_scraper():
+    amount_of_cars_inserted = Peugeot_Scraper()
+    result = update_excel_file_('Peugeot')
+
+    if result == 1:
+        flash("Peugeot Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Peugeot Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Opel")
+@login_required
+def call_Opel_scraper():
+    amount_of_cars_inserted = Opel_Scraper()
+    result = update_excel_file_('Opel')
+
+    if result == 1:
+        flash("Opel Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Opel Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
 
 class jato_form(Form):
     file1 = FileField('Excel dosyasını yükle', validators=[FileRequired()])

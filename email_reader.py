@@ -15,8 +15,8 @@ def email_reader():
     try:
         driver.get("https://mail.yuceauto.com.tr/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.yuceauto.com.tr%2fowa")
         time.sleep(3)
-        driver.find_element('xpath', '//*[@id="username"]').send_keys(mailName)
-        driver.find_element('xpath', '//*[@id="password"]').send_keys(mailPassword)
+        driver.find_element('xpath', '//*[@id="username"]').send_keys(sabahraporu_email)
+        driver.find_element('xpath', '//*[@id="password"]').send_keys(sabahraporu_email_Password)
         driver.find_element('xpath', '//*[@id="lgnDiv"]/div[9]/div').click()
         time.sleep(1)
         mail_element = driver.find_element('xpath', '//*[@id="_ariaId_27"]/div[2]')

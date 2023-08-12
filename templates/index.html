@@ -1,15 +1,16 @@
 {% include "includes/navbar.html" %}
 {% extends "layout.html" %}
 {% block body %}
-<div class = "container">
-<br>
+<div class="container" style="position:relative; background-color:#F1F2F2; padding:10px; border-radius:25px; opacity:1;">
+    <br>
+    <div>
     <h3>Size sunulan RPA hizmetleri:</h3>
     <small>Kullanımınıza uygun olan Otomasyon sürecini seçebilirsiniz.</small>
     <br>
     <br>
     <br>
-    <br>
     <hr>
+    </div>
     {% if session["departman"] == "Satış" or session["departman"] == "Bilgi Teknolojileri" %}
         <br>
         <a href="/sabahraporu" style="color:#0E3A2F"><h3>&rarr; Sabah Raporu gönderme</h3></a>
@@ -58,6 +59,9 @@
         <br>
         <hr>
     {% endif %}
-
+<br>
+<br>
+<br>
 </div>
+<br>
 {% endblock body %}
