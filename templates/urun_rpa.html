@@ -1,8 +1,13 @@
 {% include "includes/navbar.html" %}
 {% extends "layout.html" %}
 {% block body %}
+<style>
+    a:hover {
+      text-decoration: none;
+    }
+</style>
 {% from "includes/formshelpers.html" import render_field %}
-<div class = "container">
+<div class = "container" style="position:relative; background-color:#F1F2F2; padding:10px; border-radius:25px; opacity:1;">
 <h3>Pazar Verilerini Güncelleme</h3>
 <br>
 <small>Pazar verisini güncellemek istediğiniz markayı seçebilirsiniz.</small>
@@ -10,8 +15,21 @@
 <br>
 <small>Eğer tüm markaları güncellemek istiyorsanız, "Tüm markaları güncelle" butonunu kullanabilirsiniz.</small>
 <br>
+<small>Veriler markaların websitelerini ziyaret ederek elde edilmektedir.</small>
+<br>
 <hr>
 <br>
+<a href="/fiyat_guncelleme/DS">
+    <button class="btn btn-primary" style="background:#78FAAE; color:#0E3A2F; border-radius:10px;"><b>DS</b></button>
+</a>
+<span style="margin-right: 20px;"></span>
+<a href="/fiyat_guncelleme/Peugeot">
+    <button class="btn btn-primary" style="background:#78FAAE; color:#0E3A2F; border-radius:10px;"><b>Peugeot</b></button>
+</a>
+<span style="margin-right: 20px;"></span>
+<a href="/fiyat_guncelleme/Opel">
+    <button class="btn btn-primary" style="background:#78FAAE; color:#0E3A2F; border-radius:10px;"><b>Opel</b></button>
+</a>
 
 </div>
 {% endblock body %}

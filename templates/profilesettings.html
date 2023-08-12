@@ -2,7 +2,7 @@
 {% extends "layout.html" %}
 {% block body %}
 {% from "includes/formshelpers.html" import render_field %}
-<div class = "container">
+<div class = "container" style="position:relative; background-color:#F1F2F2; padding:10px; border-radius:25px; opacity:1;">
 <h3>Profil Bilgileri</h3>
 <br>
 <small>Profil Bilgilerinizi burada görüntüleyebilir, bazı değişiklikler yapabilirsiniz.</small>
@@ -22,9 +22,10 @@
   <br>
   <label>Departman: {{session["departman"]}}</label>
   <br>
+  <br>
   <small><a href="/password&change" style="color:#0E3A2F;">Şifre değiştirme</a></small>
-
-  
+  <br>
+  <br>
 </form>
 </div>
 {% endblock body %}
