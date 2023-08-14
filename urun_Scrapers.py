@@ -281,6 +281,7 @@ def Cupra_Scraper():
                 break
     driver.quit()
     print("Cupra_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Kia" and inserts data to db
 # [Raporlar].[dbo].[Kia_auto_data]
@@ -339,6 +340,7 @@ def Kia_Scraper():
                 x += 1
     driver.quit()
     print("Kia_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Volkswagen" and inserts data to db
 # [Raporlar].[dbo].[Volkswagen_auto_data]
@@ -437,7 +439,7 @@ def Volkswagen_Scraper():
             pass
     driver.quit()
     print("Volkswagen_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
-
+    return amount_of_cars_inserted
 
 
     #print("Volkswagen_Scraper function is completed...")
@@ -521,6 +523,7 @@ def Ford_Scraper():
             tr_tag_count += 1
     driver.quit()
     print("Ford_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Toyota" and inserts data to db
 # [Raporlar].[dbo].[Toyota_auto_data]
@@ -613,6 +616,7 @@ def Toyota_Scraper():
         table_count += 1
     driver.quit()
     print("Toyota_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Renault" and inserts data to db
 # [Raporlar].[dbo].[Renault_auto_data]
@@ -705,6 +709,7 @@ def Toyota_Scraper():
         table_count += 1
     driver.quit()
     print("Toyota_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Honda" and inserts data to db
 # [Raporlar].[dbo].[Honda_auto_data]
@@ -765,6 +770,7 @@ def Honda_Scraper():
                     amount_of_cars_inserted += 1
     driver.quit()
     print("Honda_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Nissan" and inserts data to db
 # [Raporlar].[dbo].[Nissan_auto_data]
@@ -855,6 +861,7 @@ def Nissan_Scraper():
 
     driver.quit()
     print("Nissan_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Seat" and inserts data to db
 # [Raporlar].[dbo].[Seat_auto_data]
@@ -959,6 +966,7 @@ def Seat_Scraper():
     driver.quit()
 
     print("Seat_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Citroen" and inserts data to db
 # [Raporlar].[dbo].[Citroen_auto_data]
@@ -1051,6 +1059,7 @@ def Citroen_Scraper():
         pass
     driver.quit()
     print("Citroen_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Hyundai" and inserts data to db
 # [Raporlar].[dbo].[Hyundai_auto_data]
@@ -1132,6 +1141,7 @@ def Hyundai_Scraper():
 
     driver.quit()
     print("Hyundai_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 # Scrapes the brand "Dacia" and inserts data to db
 # [Raporlar].[dbo].[Dacia_auto_data]
@@ -1212,6 +1222,7 @@ def Dacia_Scraper():
 
     driver.quit()
     print("Dacia_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
 
 
 

@@ -397,6 +397,138 @@ def call_Opel_scraper():
         flash("Opel Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
     return redirect(url_for("UrunRPA"))
 
+@app.route("/fiyat_guncelleme/Cupra")
+@login_required
+def call_Cupra_scraper():
+    amount_of_cars_inserted = Cupra_Scraper()
+    result = update_excel_file_('Cupra')
+
+    if result == 1:
+        flash("Cupra Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Cupra Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Kia")
+@login_required
+def call_Kia_scraper():
+    amount_of_cars_inserted = Kia_Scraper()
+    result = update_excel_file_('Kia')
+
+    if result == 1:
+        flash("Kia Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Kia Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Volkswagen")
+@login_required
+def call_Volkswagen_scraper():
+    amount_of_cars_inserted = Volkswagen_Scraper()
+    result = update_excel_file_('Volkswagen')
+
+    if result == 1:
+        flash("Volkswagen Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Volkswagen Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Toyota")
+@login_required
+def call_Toyota_scraper():
+    amount_of_cars_inserted = Toyota_Scraper()
+    result = update_excel_file_('Toyota')
+
+    if result == 1:
+        flash("Toyota Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Toyota Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Renault")
+@login_required
+def call_Renault_scraper():
+    amount_of_cars_inserted = Renault_Scraper()
+    result = update_excel_file_('Renault')
+
+    if result == 1:
+        flash("Renault Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Renault Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Ford")
+@login_required
+def call_Ford_scraper():
+    amount_of_cars_inserted = Ford_Scraper()
+    result = update_excel_file_('Ford')
+
+    if result == 1:
+        flash("Ford Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Ford Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Nissan")
+@login_required
+def call_Nissan_scraper():
+    amount_of_cars_inserted = Nissan_Scraper()
+    result = update_excel_file_('Nissan')
+
+    if result == 1:
+        flash("Nissan Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Nissan Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Seat")
+@login_required
+def call_Seat_scraper():
+    amount_of_cars_inserted = Seat_Scraper()
+    result = update_excel_file_('Seat')
+
+    if result == 1:
+        flash("Seat Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Seat Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Citroen")
+@login_required
+def call_Citroen_scraper():
+    amount_of_cars_inserted = Citroen_Scraper()
+    result = update_excel_file_('Citroen')
+
+    if result == 1:
+        flash("Citroen Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Citroen Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Hyundai")
+@login_required
+def call_Hyundai_scraper():
+    amount_of_cars_inserted = Hyundai_Scraper()
+    result = update_excel_file_('Hyundai')
+
+    if result == 1:
+        flash("Hyundai Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Hyundai Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
+@app.route("/fiyat_guncelleme/Dacia")
+@login_required
+def call_Dacia_scraper():
+    amount_of_cars_inserted = Dacia_Scraper()
+    result = update_excel_file_('Dacia')
+
+    if result == 1:
+        flash("Dacia Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Fiyatlarda veya araçlarda bir değişiklik var)".format(amount_of_cars_inserted), "success")
+    elif result == 0:
+        flash("Dacia Markasının websitesi başarıyla tarandı, {} farklı araç bulundu (Bir değişiklik yok)".format(amount_of_cars_inserted), "success")
+    return redirect(url_for("UrunRPA"))
+
 class jato_form(Form):
     file1 = FileField('Excel dosyasını yükle', validators=[FileRequired()])
 
