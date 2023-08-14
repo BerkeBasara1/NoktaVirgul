@@ -450,6 +450,7 @@ def update_excel_file_(marka):
         prev_col = "X"
         prev_prev_col = "W"
         new_col_int = 25
+        
 
     sheet.insert_cols(new_col_int) # Inserts an empty row after the last column of prices
 
@@ -731,15 +732,15 @@ def update_excel_file_(marka):
         excel_file.save('Urun_dpt_rpa_layout.xlsx')
 
         # IF CHANGES ARE DETECTED,
-        clear_files_in_path(r'Y:\YUCE AUTO GENEL\RPA\Markalar_Fiyat_Güncelleme')
-        copy_file_to_path('Urun_dpt_rpa_layout.xlsx', r'Y:\YUCE AUTO GENEL\RPA\Markalar_Fiyat_Güncelleme')
+        clear_files_in_path(r'Y:\YUCE AUTO GENEL\Urun_fiyat_excel')
+        copy_file_to_path('Urun_dpt_rpa_layout.xlsx', r'Y:\YUCE AUTO GENEL\Urun_fiyat_excel')
 
-        email_content = urun_email_content.format(marka)
-        receiver = "b.yurdasiper@skoda.com.tr; afizeo@skoda.com.tr;"
-        send_email(email_content, 'Fiyat Değişikliği', receiver, cc_email=None)
-        receivers_urun = "i.tekin@skoda.com.tr; stj_d.keler@skoda.com.tr; y.uzunoglu@skoda.com.tr; e.katiranci@skoda.com.tr;"
-        send_email(email_content, 'Fiyat Değişikliği', receivers_urun, cc_email=None)
-        send_email(email_content, 'Fiyat Değişikliği', 'l.akkus@skoda.com.tr', cc_email= 'dogao@skoda.com.tr')
+        #email_content = urun_email_content.format(marka)
+        #receiver = "b.yurdasiper@skoda.com.tr; afizeo@skoda.com.tr;"
+        #send_email(email_content, 'Fiyat Değişikliği', receiver, cc_email=None)
+        #receivers_urun = "i.tekin@skoda.com.tr; stj_d.keler@skoda.com.tr; y.uzunoglu@skoda.com.tr; e.katiranci@skoda.com.tr;"
+        #send_email(email_content, 'Fiyat Değişikliği', receivers_urun, cc_email=None)
+        #send_email(email_content, 'Fiyat Değişikliği', 'l.akkus@skoda.com.tr', cc_email= 'dogao@skoda.com.tr')
         print("There have been changes in {}, saved to excel, notified via email....".format(marka))
         return 1
     else:
