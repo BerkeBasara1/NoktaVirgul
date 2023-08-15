@@ -2,66 +2,65 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="container" style="position:relative; background-color:#F1F2F2; padding:10px; border-radius:25px; opacity:1;">
+    <div style="margin-left:30px; margin-right:30px;">
+        <div>
+            <br>
+            <h3>Size sunulan RPA hizmetleri:</h3>
+            <small>Kullanımınıza uygun olan Otomasyon sürecini seçebilirsiniz.</small>
+            <br>
+            <br>
+            <hr>
+        </div>
+        {% if session["departman"] == "Satış" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/sabahraporu" style="color:#0E3A2F"><h3>&rarr; Sabah Raporu gönderme</h3></a>
+            <small>Satış Departmanının haftaiçi her sabah bütün şirket çalışanları ve yöneticilerine gönderilen Satış Raporu Otomasyonu</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
+        {% if session["departman"] == "Satış" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/aksamraporu" style="color:#0E3A2F"><h3>&rarr; Akşam Raporu gönderme</h3></a>
+            <small>Satış Departmanının haftaiçi her akşam bütün şirket çalışanları ve yöneticilerine gönderilen Satış Adetleri Raporu Otomasyonu</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
+        {% if session["departman"] == "SSH" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/sshparcaraporu" style="color:#0E3A2F"><h3>&rarr; Günlük Perakende Parça Satış Raporu gönderme</h3></a>
+            <small>SSH Departmanının haftaiçi her sabah bütün şirket çalışanları ve yöneticilerine gönderilen Günlük Perakende Parça Satış Raporu Raporu Otomasyonu</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
+        {% if session["departman"] == "Strateji ve Planlama" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/planlama_pcl_pdf" style="color:#0E3A2F"><h3>&rarr; Araç Faturalarının PDF'lerini bulma</h3></a>
+            <small>Fatura no veya Şasi no aratarak istenilen araçların faturalarını PDF formatında dosyaya kaydetmek için kullanılan otomasyon</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
+        {% if session["departman"] == "Ürün" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/urun_rpa" style="color:#0E3A2F"><h3>&rarr; Pazar verileri toplama otomasyonu</h3></a>
+            <small>Otomotiv sektöründeki güncel fiyatları almak için kullanılan otomasyon. Eğer güncel verilerde değişim varsa Ürün departmanına bilgi geçer.</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
+        {% if session["departman"] == "Ürün" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/jato_rpa" style="color:#0E3A2F"><h3>&rarr; JATO Excel Yükleme</h3></a>
+            <small>... için Jato excel ini yükleme alanı.</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
     <br>
-    <div>
-    <h3>Size sunulan RPA hizmetleri:</h3>
-    <small>Kullanımınıza uygun olan Otomasyon sürecini seçebilirsiniz.</small>
-    <br>
-    <br>
-    <br>
-    <hr>
     </div>
-    {% if session["departman"] == "Satış" or session["departman"] == "Bilgi Teknolojileri" %}
-        <br>
-        <a href="/sabahraporu" style="color:#0E3A2F"><h3>&rarr; Sabah Raporu gönderme</h3></a>
-        <small>Satış Departmanının haftaiçi her sabah bütün şirket çalışanları ve yöneticilerine gönderilen Satış Raporu Otomasyonu</small>
-        <br>
-        <br>
-        <hr>
-    {% endif %}
-    {% if session["departman"] == "Satış" or session["departman"] == "Bilgi Teknolojileri" %}
-        <br>
-        <a href="/aksamraporu" style="color:#0E3A2F"><h3>&rarr; Akşam Raporu gönderme</h3></a>
-        <small>Satış Departmanının haftaiçi her akşam bütün şirket çalışanları ve yöneticilerine gönderilen Satış Adetleri Raporu Otomasyonu</small>
-        <br>
-        <br>
-        <hr>
-    {% endif %}
-    {% if session["departman"] == "SSH" or session["departman"] == "Bilgi Teknolojileri" %}
-        <br>
-        <a href="/sshparcaraporu" style="color:#0E3A2F"><h3>&rarr; Günlük Perakende Parça Satış Raporu gönderme</h3></a>
-        <small>SSH Departmanının haftaiçi her sabah bütün şirket çalışanları ve yöneticilerine gönderilen Günlük Perakende Parça Satış Raporu Raporu Otomasyonu</small>
-        <br>
-        <br>
-        <hr>
-    {% endif %}
-    {% if session["departman"] == "Strateji ve Planlama" or session["departman"] == "Bilgi Teknolojileri" %}
-        <br>
-        <a href="/planlama_pcl_pdf" style="color:#0E3A2F"><h3>&rarr; Araç Faturalarının PDF'lerini bulma</h3></a>
-        <small>Fatura no veya Şasi no aratarak istenilen araçların faturalarını PDF formatında dosyaya kaydetmek için kullanılan otomasyon</small>
-        <br>
-        <br>
-        <hr>
-    {% endif %}
-    {% if session["departman"] == "Ürün" or session["departman"] == "Bilgi Teknolojileri" %}
-        <br>
-        <a href="/urun_rpa" style="color:#0E3A2F"><h3>&rarr; Pazar verileri toplama otomasyonu</h3></a>
-        <small>Otomotiv sektöründeki güncel fiyatları almak için kullanılan otomasyon. Eğer güncel verilerde değişim varsa Ürün departmanına bilgi geçer.</small>
-        <br>
-        <br>
-        <hr>
-    {% endif %}
-    {% if session["departman"] == "Ürün" or session["departman"] == "Bilgi Teknolojileri" %}
-        <br>
-        <a href="/jato_rpa" style="color:#0E3A2F"><h3>&rarr; JATO Excel Yükleme</h3></a>
-        <small>... için Jato excel ini yükleme alanı.</small>
-        <br>
-        <br>
-        <hr>
-    {% endif %}
-<br>
-<br>
-<br>
 </div>
 <br>
 {% endblock body %}
