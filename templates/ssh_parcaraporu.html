@@ -3,25 +3,29 @@
 {% block body %}
 {% from "includes/formshelpers.html" import render_field %}
 <div class = "container" style="position:relative; background-color:#F1F2F2; padding:10px; border-radius:25px; opacity:1;">
-    <h3 style="color:#0E3A2F">Günlük Perakende Parça Satış Raporu Otomasyonu</h3>
-    <br>
-    <small style="color:#0E3A2F">Aşağıdaki formu tam ve doğru şekilde doldurduktan sonra butona basarak Günlük Perakende Parça Satış Raporunu eposta olarak gönderebilirsiniz.</small>
-    <br>
-    <small style="color:#0E3A2F">Lütfen gönderdikten sonra bir süre bekleyin, raporlar Dora'dan çekildiği için raporun hazırlanması zaman alıyor.</small>
-    <br>
-    <hr>
-    <br>
+    <div style="margin-left:30px;">
+        <br>
+        <h3 style="color:#0E3A2F">Günlük Perakende Parça Satış Raporu Otomasyonu</h3>
+        <br>
+        <small style="color:#0E3A2F">Aşağıdaki formu tam ve doğru şekilde doldurduktan sonra butona basarak Günlük Perakende Parça Satış Raporunu eposta olarak gönderebilirsiniz.</small>
+        <br>
+        <small style="color:#0E3A2F">Lütfen gönderdikten sonra bir süre bekleyin, raporlar Dora'dan çekildiği için raporun hazırlanması zaman alıyor.</small>
+        <br>
+        <hr style="margin-right:30px;">
+        <br>
+    </div>
     <div style="display:flex; justify-content:center;">
-    <form method = "post" style="text-align:center;" enctype="multipart/form-data">
-        {{ render_field(form.turkuazusername, class = "form-control") }}
-        {{ render_field(form.turkuazpw, class = "form-control") }}
-        <br>
-        {{ render_field(form.first_day_check, class = "form-control") }}
+        <form method = "post" style="text-align:center;" enctype="multipart/form-data">
+            {{ render_field(form.turkuazusername, class = "form-control") }}
+            {{ render_field(form.turkuazpw, class = "form-control") }}
+            <br>
+            {{ render_field(form.first_day_check, class = "form-control") }}
 
-        <br>
-        <br>
-        <button type="submit" class="btn btn-primary" style="background:#0E3A2F; color:#78FAAE; border-radius:10px">Parça Satış Raporunu Gönder!</button>
-    </form>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary" style="background:#0E3A2F; color:#78FAAE; border-radius:10px;  border-width:0px; font-weight:bold;">Raporu Gönder</button>
+        </form>
+    </div>
 </div>
-</div>
+<br>
 {% endblock body %}

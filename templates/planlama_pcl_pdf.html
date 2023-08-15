@@ -3,33 +3,41 @@
 {% block body %}
 {% from "includes/formshelpers.html" import render_field %}
 <div class = "container" style="position:relative; background-color:#F1F2F2; padding:10px; border-radius:25px; opacity:1;">
-    <h3 style="color:#0E3A2F">Faturaları PDF formatta bulma</h3>
-    <br>
-    <br>
-    <small style="color:#0E3A2F">İhtiyacınız olan faturaları PDF formatta bir dosya içinde toplamak için kullanabilirsiniz.</small>
-    <br>
-    <br>
-    <small style="color:#0E3A2F">Lütfen Excel dosyayı yükleyiniz.</small>
-    <small style="color:#0E3A2F">Yüklenen Excel'de tek bir sheet olduğundan emin olunuz.</small>
-    <small style="color:#0E3A2F">Verilerin 'A' sütununda olduğundan ve şasi no veya fatura no dışında bir değer olmadığından emin olunuz.</small>
-    <small style="color:#0E3A2F">"A1" hücresinde hiçbir veri olmadığından emin olunuz. Veriler "A2" hücresinden başlıyor olmalı.</small>
-    <small style="color:#0E3A2F">Her bir hücrede fatura no için 8 hane, Şasi no için 17 haneli veri olduğundan emin olunuz.</small>
-    <br>
-    <br>
-    <small style="color:#0E3A2F">Oluşturulacak Dosya ismini ismini giriniz ve "Çalıştır" butonuna basınız.</small>
-    <br>
-    <br>
-    <hr>
-    <br>
+    <div style="margin-left:30px;">
+        <br>
+        <h3 style="color:#0E3A2F">Faturaları PDF formatta bulma</h3>
+        <br>
+        <small style="color:#0E3A2F">İhtiyacınız olan faturaları PDF formatta bir dosya içinde toplamak için kullanabilirsiniz.</small>
+        <br>
+        <br>
+        <small style="color:#0E3A2F; text-decoration:underline; font-weight:bold;">Lütfen aşağıdaki yönergelere uyunuz:</small>
+        <br>
+        <small style="color:#0E3A2F">- Lütfen Excel dosyayı yükleyiniz.</small>
+        <br>
+        <small style="color:#0E3A2F">- Yüklenen Excel'de tek bir sheet olduğundan emin olunuz.</small>
+        <br>
+        <small style="color:#0E3A2F">- Verilerin 'A' sütununda olduğundan ve şasi no veya fatura no dışında bir değer olmadığından emin olunuz.</small>
+        <br>
+        <small style="color:#0E3A2F">- "A1" hücresinde hiçbir veri olmadığından emin olunuz. Veriler "A2" hücresinden başlıyor olmalı.</small>
+        <br>
+        <small style="color:#0E3A2F">- Her bir hücrede fatura no için 8 hane, Şasi no için 17 haneli veri olduğundan emin olunuz.</small>
+        <br>
+        <small style="color:#0E3A2F">- Oluşturulacak Dosya ismini ismini giriniz ve "Çalıştır" butonuna basınız.</small>
+        <br>
+        <hr style="margin-right:30px;">
+        <br>
+    </div>
+
     <div style="display:flex; justify-content:center;">
-    <form method = "post" style="text-align:center;" enctype="multipart/form-data">
-        {{ render_field(form.file1, class = "form-control") }}
-        <br>
-        {{ render_field(form.dosya_adi, class = "form-control") }}
-        <br>
-        <br>
-        <button type="submit" class="btn btn-primary" style="background:#0E3A2F; color:#78FAAE; border-radius:10px">Çalıştır</button>
-    </form>
+        <form method = "post" style="text-align:center;" enctype="multipart/form-data">
+            {{ render_field(form.file1, class = "form-control") }}
+            <br>
+            {{ render_field(form.dosya_adi, class = "form-control") }}
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary" style="background:#0E3A2F; color:#78FAAE; border-radius:10px; border-width:0px; font-weight:bold;">Çalıştır</button>
+        </form>
+    </div>
 </div>
-</div>
+<br>
 {% endblock body %}

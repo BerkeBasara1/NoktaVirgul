@@ -530,7 +530,7 @@ def call_Dacia_scraper():
     return redirect(url_for("UrunRPA"))
 
 class jato_form(Form):
-    file1 = FileField('Excel dosyasını yükle', validators=[FileRequired()])
+    file1 = FileField('Excel dosyasını yükle', validators=[FileRequired()], render_kw={'style': 'width: 30ch; border-radius:10px; border-color:black; text-align:center'})
 
 @app.route("/jato_rpa", methods = ["GET", "POST"])
 @login_required
