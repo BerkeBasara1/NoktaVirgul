@@ -104,7 +104,6 @@ def SSH_sabahraporu_complete(Turkuaz_username, Turkuaz_password, first_day_check
         try:
             ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, last_day_worked, last_day_worked) # Downloads The excel starting date : lastwork_day, ending date: lastwork_day
         except:
-            ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, last_day_worked, last_day_worked)
             try:
                 ParcaSatis_excel_downloader(Turkuaz_username, Turkuaz_password, last_day_worked, last_day_worked)
             except:
