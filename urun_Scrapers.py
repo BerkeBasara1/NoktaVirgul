@@ -444,6 +444,79 @@ def Volkswagen_Scraper():
 
     #print("Volkswagen_Scraper function is completed...")
 
+# Scrapes the brand "Renault" and inserts data to db
+# [Raporlar].[dbo].[Renault_auto_data]
+def Renault_Scraper():
+    sene = datetime.datetime.now().year
+    today = datetime.datetime.today()
+    today = today.strftime('%d.%m.%Y')
+
+    qu_ery1 = "delete FROM [Raporlar].[dbo].[Renault_auto_data] where tarih = '{}'".format(today)
+    QueryToDB(YuceDB, qu_ery1)
+
+    qu_ery2 = "delete FROM [Raporlar].[dbo].[dashboard_auto_data] where tarih = '{}' and Marka = 'Renault'".format(today)
+    QueryToDB(YuceDB, qu_ery2)
+
+    options = Options()
+    options.headless = True
+    driver = uc.Chrome(use_subprocess=True, options=options)
+
+    driver.get("https://www.renault.com.tr/renault-fiyat-listeleri/binek-arac-fiyat-listesi.html")
+    time.sleep(5)
+
+    iframe1 = driver.find_element("xpath", '//*[@id="Page"]/div[4]/div/div/iframe')
+    driver.switch_to.frame(iframe1)
+    fiyat_list_elements = driver.find_elements("tag name", 'fiyat-list')
+    amount_of_cars_inserted = 0
+    for car_table in fiyat_list_elements:
+        car_name = car_table.find_element("tag name", 'h2').text.split("\n")[0]
+        fiyat_lis = []
+        headers = car_table.find_elements("tag name", 'th')
+        model_lastyear_exists = False
+        jcount = 0
+        for header in headers:
+            jcount += 1
+            if str(sene) in header.text:
+                if "Anahtar Teslim Liste Fiyatı" in header.text:
+                    fiyat_lis.append(jcount)
+            elif str(sene-1) in header.text:
+                model_lastyear_exists = True
+            elif "Kampanya" in header.text:
+                fiyat_lis.append(jcount)
+            elif "kampanya" in header.text:
+                fiyat_lis.append(jcount)
+        tbody = car_table.find_element("tag name", 'tbody')
+        tr_tags = tbody.find_elements("tag name", 'tr')
+        for tr_tag in tr_tags:
+            td_tags = tr_tag.find_elements("tag name", 'td')
+            kl = []
+            for td_tag in td_tags:
+                kl.append(td_tag.text)
+            model = kl[0]
+            if model_lastyear_exists == True:
+                lastyear_price = kl[1].replace("₺","TL")
+                current_year_price = kl[2].replace("₺","TL")
+            else:
+                current_year_price = kl[1].replace("₺","TL")
+                lastyear_price = "-"
+            kampanyali_fiyat = "-"
+            car_detail = car_name + ' ' + model
+            car_detail = car_detail.replace("Yeni ", "")
+            query = "Insert INTO [Raporlar].[dbo].[Renault_auto_data] (Araba, Model, gecenyil_model_fiyat, buyil_model_fiyat, kampanyali_fiyat, tarih, car_detail) " \
+                    "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(car_name, model, lastyear_price, current_year_price, kampanyali_fiyat, today, car_detail)
+            QueryToDB(YuceDB, query)
+
+            fiyat_int = current_year_price.replace(".", "").replace(" ", "").replace("TL", "").replace("tl","").replace(",", "")
+            Kampanyali_Satis_Fiyati_int = kampanyali_fiyat.replace(".", "").replace(" ","").replace("TL", "").replace("tl", "").replace(",", "")
+            query_dashboard = "Insert INTO [Raporlar].[dbo].[dashboard_auto_data] (Marka, Fiyat, Kampanyali_Fiyat, car_detail, tarih) VALUES ('{}', '{}', '{}', '{}', '{}')".format(
+                "Renault", str(fiyat_int), Kampanyali_Satis_Fiyati_int, car_detail, today)
+            QueryToDB(YuceDB, query_dashboard)
+
+            amount_of_cars_inserted += 1
+    driver.quit()
+    print("Renault_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
+    return amount_of_cars_inserted
+
 # Scrapes the brand "Ford" and inserts data to db
 # [Raporlar].[dbo].[Ford_auto_data]
 def Ford_Scraper():
@@ -618,8 +691,8 @@ def Toyota_Scraper():
     print("Toyota_Scraper function is completed... ({} cars inserted)".format(amount_of_cars_inserted))
     return amount_of_cars_inserted
 
-# Scrapes the brand "Renault" and inserts data to db
-# [Raporlar].[dbo].[Renault_auto_data]
+# Scrapes the brand "Toyota" and inserts data to db
+# [Raporlar].[dbo].[Toyota_auto_data]
 def Toyota_Scraper():
     sene = datetime.datetime.now().year
     today = datetime.datetime.today()
