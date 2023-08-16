@@ -168,7 +168,7 @@ class PclPdfForm(Form):
 @login_required
 def PclPdfJob():
     from pcl_pdf_excel_funcs import read_column_to_list
-    from pcl_pdf_funcs import carry_invoice_PDFs, split_pdf_pages, extract_data_from_pdf, rename_pdf, pdf_folder_job, search_and_copy_files, count_files_in_folder
+    from pcl_pdf_funcs import pdf_folder_job, search_and_copy_files, count_files_in_folder
 
     form = PclPdfForm(request.form)
     if request.method == "POST":
@@ -176,35 +176,6 @@ def PclPdfJob():
         dosya_adi = form.dosya_adi.data
         
         file1 = request.files['file1']
-
-        # Finds the new PDFs in given directory
-        def RunGhostscript_in(dosya_ismi):
-            # 20230801 Last scraped
-            #dosya_ismi = r'\PCL\20230801' # Yuce Auto ortakta pcl5'lerin olduğu dosyanın ismi
-
-            yuce_auto_path = r"Y:\YUCE AUTO GENEL"
-            tot_path = yuce_auto_path + "\\" + dosya_ismi
-            ghost_script_exe_path = r"Desktop\GhostScript\ghostpcl-10.01.1-win64\ghostpcl-10.01.1-win64\gpcl6win64.exe"
-            carry_invoice_PDFs(tot_path, ghost_script_exe_path)
-
-            i = 0
-            while True: # Creates a new pdf for each page of the current PDF
-                try:
-                    i += 1
-                    split_pdf_pages("{}.pdf".format(str(i)))
-                    j = 0
-                    while True:  # Renames the PDF to invoice_VIN_date format
-                        try:
-                            j += 1
-                            pdf_name = 'page_{}.pdf'.format(str(j))
-                            invoice_no, despatch_date, VIN = extract_data_from_pdf(pdf_name)
-                            despatch_date = despatch_date.replace(".", "")
-                            new_file_name = invoice_no + "_" + VIN + "_" + despatch_date
-                            rename_pdf(pdf_name, new_file_name)
-                        except:
-                            break
-                except:
-                    break
 
         if file1:  # Check if a file was uploaded
             filename = secure_filename(file1.filename)
@@ -268,11 +239,45 @@ def PclPdfJob():
     else:
         return redirect(url_for("index"))
 
+# /run_ghost_script/<string:dosya_path>
+@app.route("/run_ghost_script/<string:dosya_path>")
+@login_required
+def RunGhostscript_in(dosya_path):
+    from pcl_pdf_funcs import carry_invoice_PDFs, split_pdf_pages, extract_data_from_pdf, rename_pdf, pdf_folder_job
+    # 20230816 Last scraped
+
+    yuce_auto_path = r"Y:\YUCE AUTO GENEL\PCL\ ".replace(" ","")
+    tot_path = yuce_auto_path + "\\" + dosya_path
+    ghost_script_exe_path = r"C:\Users\yuceappadmin\Desktop\GhostScript\ghostpcl-10.01.1-win64\ghostpcl-10.01.1-win64\gpcl6win64.exe"
+    carry_invoice_PDFs(tot_path, ghost_script_exe_path)
+
+    i = 0
+    while True: # Creates a new pdf for each page of the current PDF
+        try:
+            i += 1
+            split_pdf_pages("{}.pdf".format(str(i)))
+            j = 0
+            while True:  # Renames the PDF to invoice_VIN_date format
+                try:
+                    j += 1
+                    pdf_name = 'page_{}.pdf'.format(str(j))
+                    invoice_no, despatch_date, VIN = extract_data_from_pdf(pdf_name)
+                    despatch_date = despatch_date.replace(".", "")
+                    new_file_name = invoice_no + "_" + VIN + "_" + despatch_date
+                    rename_pdf(pdf_name, new_file_name)
+                except:
+                    break
+        except:
+            break
+    pdf_folder_job("pdfs")
+    flash("GhostScript {} için başarıyla çalıştı".format(dosya_ismi), "success")
+    return redirect(url_for("index"))
+
 # SSH Sabah Raporu Form
 class SSHSabahRaporuForm(Form):
     turkuazusername = StringField("Turkuaz Kullanıcı Adı", render_kw={'style': 'width: 30ch; border-radius:10px; border-color:black;'})
     turkuazpw = PasswordField("Turkuaz Şifre", render_kw={'style': 'width: 30ch; border-radius:10px; border-color:black;'})
-    first_day_check = BooleanField("Geçen ay kümüle rapor", render_kw={'style': 'width: 30ch; border-color:black;'})
+    first_day_check = BooleanField("Geçen ay kümüle rapor", render_kw={'style': 'width: 30ch; border-color:black;'})    
 
 # SSH Sabah Raporu
 @app.route("/sshparcaraporu", methods = ["GET", "POST"])
