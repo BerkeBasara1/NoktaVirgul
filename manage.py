@@ -241,7 +241,6 @@ def PclPdfJob():
 
 # /run_ghost_script/<string:dosya_path>
 @app.route("/run_ghost_script/<string:dosya_path>")
-@login_required
 def RunGhostscript_in(dosya_path):
     from pcl_pdf_funcs import carry_invoice_PDFs, split_pdf_pages, extract_data_from_pdf, rename_pdf, pdf_folder_job
     # 20230816 Last scraped
@@ -270,7 +269,7 @@ def RunGhostscript_in(dosya_path):
         except:
             break
     pdf_folder_job("pdfs")
-    flash("GhostScript {} için başarıyla çalıştı".format(dosya_ismi), "success")
+    flash("GhostScript {} için başarıyla çalıştı".format(dosya_path), "success")
     return redirect(url_for("index"))
 
 # SSH Sabah Raporu Form

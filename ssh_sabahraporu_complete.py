@@ -239,7 +239,7 @@ def SSH_sabahraporu_complete(Turkuaz_username, Turkuaz_password, first_day_check
     send_email(content, 'Günlük Perakende Parça Satış Raporu', 'afizeo@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
     send_email(content, 'Günlük Perakende Parça Satış Raporu', 'b.gerzeli@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
     send_email(content, 'Günlük Perakende Parça Satış Raporu', 'stj_b.basara@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
-    #send_email(content, 'Günlük Perakende Parça Satış Raporu', 'dogao@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
+    send_email(content, 'Günlük Perakende Parça Satış Raporu', 'dogao@skoda.com.tr', sender_email='sshraporu@skoda.com.tr')
 
     os.remove("isemri_figure.png")
     os.remove("parca_figure.png")
