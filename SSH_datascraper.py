@@ -14,7 +14,7 @@ from config import *
 def TurkuazDataReader1(id, pw, excel_startdate, excel_enddate):
     # Opens driver and directs to login page
     options = Options()
-    options.headless = False
+    options.headless = True
     driver = uc.Chrome(options=options)
     driver.get("https://turkuaz.dohas.com.tr/Admin/UILogin.aspx?ReturnUrl=%2f&__0186262C9018__=BQTQ4GMAmhTUYA%3d%3d__")
     time.sleep(1.5)
@@ -103,7 +103,7 @@ def TurkuazDataReader1(id, pw, excel_startdate, excel_enddate):
 def ParcaSatis_excel_downloader(id, pw, start_date, end_date):
     # Opens driver and directs to login page
     options = Options()
-    options.headless = False
+    options.headless = True
     driver = uc.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
     driver.get("https://turkuaz.dohas.com.tr/Admin/UILogin.aspx?ReturnUrl=%2f&__0186262C9018__=BQTQ4GMAmhTUYA%3d%3d__")

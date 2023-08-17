@@ -241,7 +241,7 @@ def plot_line_(titl, png_name, last_month_data=False):
         ax.axhline(x, color='#0E3A2F', linestyle='--', alpha=0.05)
         x = x + 1000
 
-    fig.set_size_inches(12, 5)
+    fig.set_size_inches(12, 6)
     fig.savefig(png_name + '.png')
     #plt.show()
 
@@ -343,6 +343,6 @@ def plot_line_2(titl, png_name, last_month_data=False):
         ax.axhline(x, color='#0E3A2F', linestyle='--', alpha=0.05)
         x = x + 1000
 
-    fig.set_size_inches(12, 5)
+    fig.set_size_inches(12, 6)
     fig.savefig(png_name + '.png')
     #plt.show()
