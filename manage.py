@@ -224,7 +224,7 @@ def PclPdfJob():
             message2 = "Girdiğiniz excelde {} tane satırda hata var.".format(faulty_inputs_length)
             flash(message2, "warning")
 
-            message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : Y:\YUCE AUTO GENEL\RPA\ ".format(amount_of_found_invoices)
+            message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : {}".format(amount_of_found_invoices, path_to_access)
             flash(message3, "success")
             # Bulunamayan faturaları da bi' şekilde sunmak lazım
             
