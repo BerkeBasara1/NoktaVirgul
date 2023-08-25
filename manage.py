@@ -245,10 +245,11 @@ def RunGhostscript_in(dosya_path):
     from pcl_pdf_funcs import carry_invoice_PDFs, split_pdf_pages, extract_data_from_pdf, rename_pdf, pdf_folder_job
     # 20230816 Last scraped
 
-    yuce_auto_path = r"Y:\YUCE AUTO GENEL\PCL\ ".replace(" ","")
-    tot_path = yuce_auto_path + "\\" + dosya_path
+    yuce_auto_path = r"Y:\YUCE AUTO GENEL\PCL\_".replace("_","")
+    tot_path = yuce_auto_path + "\ ".replace(" ","") + dosya_path
     ghost_script_exe_path = r"C:\Users\yuceappadmin\Desktop\GhostScript\ghostpcl-10.01.1-win64\ghostpcl-10.01.1-win64\gpcl6win64.exe"
-    carry_invoice_PDFs(tot_path, ghost_script_exe_path)
+    carry_invoice_PDFs(tot_path, ghost_script_exe_path),
+    print(tot_path)
 
     i = 0
     while True: # Creates a new pdf for each page of the current PDF

@@ -1,6 +1,6 @@
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.select import Select
+from webdriver_manager.chrome import ChromeDriverManager
 import undetected_chromedriver as uc
 from datetime import datetime
 import pandas as pd
@@ -28,7 +28,7 @@ def AksamRaporuComplete(turkuazusername, turkuazpw):
     # Opens driver and directs to login page
     options = Options()
     options.headless = False
-    driver = uc.Chrome(options=options)
+    driver = uc.Chrome(driver_executable_path=ChromeDriverManager().install(), options=options)
 
     driver.get("https://turkuaz.dohas.com.tr/Admin/UILogin.aspx?ReturnUrl=%2f&__0186262C9018__=BQTQ4GMAmhTUYA%3d%3d__")
     time.sleep(1.5)

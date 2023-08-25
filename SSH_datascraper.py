@@ -1,8 +1,7 @@
-from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.keys import Keys
-import pandas as pd
+
 import undetected_chromedriver as uc
 from ssh_excel_readers import *
 import time
@@ -14,8 +13,8 @@ from config import *
 def TurkuazDataReader1(id, pw, excel_startdate, excel_enddate):
     # Opens driver and directs to login page
     options = Options()
-    options.headless = True
-    driver = uc.Chrome(options=options)
+    options.headless = False
+    driver = uc.Chrome(driver_executable_path=ChromeDriverManager().install(), options=options)
     driver.get("https://turkuaz.dohas.com.tr/Admin/UILogin.aspx?ReturnUrl=%2f&__0186262C9018__=BQTQ4GMAmhTUYA%3d%3d__")
     time.sleep(1.5)
     try:
@@ -104,8 +103,7 @@ def ParcaSatis_excel_downloader(id, pw, start_date, end_date):
     # Opens driver and directs to login page
     options = Options()
     options.headless = True
-    driver = uc.Chrome(options=options)
-    wait = WebDriverWait(driver, 10)
+    driver = uc.Chrome(driver_executable_path=ChromeDriverManager().install(), options=options)
     driver.get("https://turkuaz.dohas.com.tr/Admin/UILogin.aspx?ReturnUrl=%2f&__0186262C9018__=BQTQ4GMAmhTUYA%3d%3d__")
     time.sleep(1.5)
 

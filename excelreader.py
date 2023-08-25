@@ -229,9 +229,28 @@ def ExcelRead3(filename, sheetname):
         SUPERB_T2 = df.at[13, "Unnamed: 33"]
         nanTo0Converter(SUPERB_M2)
         nanTo0Converter(SUPERB_T2)
+        try:
+            s = int(SUPERB_M2)
+        except:
+            SUPERB_M2 = 0
+        try:
+            s = int(SUPERB_T2)
+        except:
+            SUPERB_T2 = 0
+        try:
+            s = int(SUPERB_T1)
+        except:
+            SUPERB_T1 = 0
+        try:
+            s = int(SUPERB_M1)
+        except:
+            SUPERB_M1 = 0
+
         SUPERB_M = SUPERB_M1 + SUPERB_M2
         SUPERB_T = SUPERB_T1 + SUPERB_T2
+
         perc_Superb = str(round((SUPERB_M / SUPERB_T) * 100))
+
         SCALA_M = df.at[15, "Unnamed: 36"] # AK14 in excel
         SCALA_T = df.at[15, "Unnamed: 33"]
         nanTo0Converter(SCALA_M)
