@@ -1,7 +1,6 @@
-from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
-from datetime import datetime
 import warnings
 import time
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -11,7 +10,7 @@ from config import *
 def email_reader():
     options = Options()
     options.headless = False
-    driver = uc.Chrome(options=options)
+    driver = uc.Chrome(driver_executable_path=ChromeDriverManager().install(), options=options)
     try:
         driver.get("https://mail.yuceauto.com.tr/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.yuceauto.com.tr%2fowa")
         time.sleep(3)
