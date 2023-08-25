@@ -93,12 +93,12 @@ email_html = """<html>
     <br>
     <table>
         <tr>
-            <td colspan="4" style="border: 1px solid black;"><b>YS STOK ÜST MODEL BAZLI MÜŞTERİLİ ARAÇ ORANI</b></td>
+            <td colspan="4" style="text-align:center; border: 1px solid black;"><b>YS STOK ÜST MODEL BAZLI MÜŞTERİLİ ARAÇ ORANI</b></td>
         </tr>
         <tr style="background:#6CBDF6">
             <td style="border: 1px solid black; height:70px; background-color:#F1F2F2"><b>&nbsp;&nbsp;&nbsp;ÜST MODEL&nbsp;&nbsp;&nbsp;</b></td>
             <td style="border: 1px solid black; background-color:#F1F2F2"><b>&nbsp;&nbsp;&nbsp;ADET&nbsp;&nbsp;&nbsp;</b></td>
-            <td style="border: 1px solid black; width:60px; background-color:#F1F2F2"><b>&nbsp;&nbsp;MÜŞTERİ İSİMLİ ARAÇ SAYISI&nbsp;&nbsp;</b></td>
+            <td style="border: 1px solid black; width:60px; text-align:center; background-color:#F1F2F2"><b>MÜŞTERİ İSİMLİ ARAÇ SAYISI</b></td>
             <td style="border: 1px solid black; background-color:#F1F2F2"><b>&nbsp;&nbsp;MÜŞTERİ ORANI&nbsp;&nbsp;</b></td>
         </tr>
         <tr>
