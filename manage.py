@@ -270,8 +270,6 @@ def RunGhostscript_in(dosya_path):
         except:
             break
     pdf_folder_job("pdfs")
-    flash("GhostScript {} için başarıyla çalıştı".format(dosya_path), "success")
-    return redirect(url_for("index"))
 
 # SSH Sabah Raporu Form
 class SSHSabahRaporuForm(Form):
