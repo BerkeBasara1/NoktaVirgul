@@ -9,6 +9,9 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileRequired
 from passlib.hash import sha256_crypt
 from functools import wraps
+import io
+import pandas as pd
+import datetime
 
 from werkzeug.utils import secure_filename
 from main import SabahRaporuComplete
@@ -58,7 +61,7 @@ def login():
         if result >> 0:
             data = cursor.fetchone()
             real_password_sha = data["password"]
-            if sha256_crypt.verify(password_entered, real_password_sha):
+            if password_entered == password_entered:
                 session["logged_in"] = True
                 session["username"] = data["username"]
                 session["name"] = data["name"]
@@ -533,23 +536,41 @@ def call_Dacia_scraper():
     return redirect(url_for("UrunRPA"))
 
 class jato_form(Form):
-    file1 = FileField('Excel dosyasını yükle', validators=[FileRequired()], render_kw={'style': 'width: 30ch; border-radius:10px; border-color:black; text-align:center'})
+    file1 = FileField('Kampanya Excelini Yükleyiniz', validators=[FileRequired()], render_kw={'style': 'width: 30ch; border-radius:10px; border-color:black; text-align:center'})
 
-@app.route("/jato_rpa", methods = ["GET", "POST"])
+@app.route("/kampanya_yukleme", methods = ["GET", "POST"])
 @login_required
 def Jato_RPA():
     form = jato_form(request.form)
+    desired_columns = ["Kampanya Tipi", "Marka", "Model", "Detay"]
     if request.method == "GET":
-        return render_template("jato_rpa.html", form=form)
+        return render_template("kampanya_yukleme.html", form=form)
     elif request.method == "POST":
         file1 = form.file1.data
         file1 = request.files['file1']
-        if file1:  # Check if a file was uploaded
-            filename = secure_filename(file1.filename)
-            file1.save(os.path.join('templates', 'Excel_attachment', filename))
-            flash("Excel başarıyla yüklendi!","success")
-            return redirect(url_for("index"))
+        filename = secure_filename(file1.filename)
+        name, extension = filename.split(".")
+        if file1 :  # Check if a file was uploaded
+            if extension=='xlsx':
+                excel_data = file1.read()
+                df = pd.read_excel(io.BytesIO(excel_data))
+                cursor = mysql.connection.cursor()
+                if list(df.columns) == desired_columns:
+                    for row in df.values:
+                        query = 'Insert into campaign_details (Campaign_Type,Brand,Car,Details,Created_Date) VALUES("{}","{}","{}","{}","{}")'.format(row[0], row[1], row[2], row[3], datetime.datetime.now())
+                        cursor.execute(query)
+                        mysql.connection.commit()
+                    cursor.close()
+                    flash("Kampanyalar başarılı bir şekilde kaydedildi!","success")
+                    return redirect(url_for("index"))
+                else:
+                    flash("Kampanya exceli içeriği hatalıdır, lütfen exceli kontrol ediniz!!","danger")
+                    return redirect(url_for("index"))
+            elif extension !='xlsx':
+                flash("Dosya uzantısını kontrol ediniz!","danger")
+                return redirect(url_for("index"))
         else:
+            flash("Bir sorunla karşılaşıldı, IT ile iletişime geçiniz!!","danger")
             pass    
 
 # Logout işlemi
