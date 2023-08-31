@@ -225,6 +225,8 @@ def PclPdfJob():
             flash(message2, "warning")
 
             message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : Y:\YUCE AUTO GENEL\RPA\+_+{}".format(amount_of_found_invoices, dosya_adi).replace("+_+","")
+
+
             flash(message3, "success")
             # Bulunamayan faturaları da bi' şekilde sunmak lazım
             
