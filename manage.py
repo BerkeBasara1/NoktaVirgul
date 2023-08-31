@@ -207,7 +207,7 @@ def PclPdfJob():
 
             pdf_folder_job("pcl_pdf_pdfs")
             ortak_alan_path = r"Y:\YUCE AUTO GENEL\RPA"
-            path_to_access = "\\yucefile\data\YUCE AUTO GENEL\RPA" + "\ ".replace(" ","") + dosya_adi
+            path_to_access = r"Y:\YUCE AUTO GENEL\RPA" + "\ ".replace(" ","") + dosya_adi
             new_folder_path = os.path.join(ortak_alan_path, dosya_adi)
 
             # Create the new folder
