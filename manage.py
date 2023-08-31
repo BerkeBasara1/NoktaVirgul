@@ -214,7 +214,7 @@ def PclPdfJob():
             os.makedirs(new_folder_path)
             end_file = ortak_alan_path + r"\ ".replace(" ","") + dosya_adi
             for substr in correct_inputs_list:
-                search_and_copy_files("pcl_pdf_pdfs", end_file, substr)
+                search_and_copy_files("pdfs", end_file, substr)
             
             amount_of_found_invoices = count_files_in_folder(ortak_alan_path + r"\ ".replace(" ","") + dosya_adi)
 
@@ -224,7 +224,9 @@ def PclPdfJob():
             message2 = "Girdiğiniz excelde {} tane satırda hata var.".format(faulty_inputs_length)
             flash(message2, "warning")
 
-            message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : {}".format(amount_of_found_invoices, path_to_access)
+            message3 = "{} adet fatura bulundu. \n Bu yoldan erişebilirsiniz : Y:\YUCE AUTO GENEL\RPA\+_+{}".format(amount_of_found_invoices, dosya_adi).replace("+_+","")
+
+
             flash(message3, "success")
             # Bulunamayan faturaları da bi' şekilde sunmak lazım
             
