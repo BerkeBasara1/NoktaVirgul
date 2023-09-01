@@ -555,13 +555,10 @@ def Jato_RPA():
             if extension=='xlsx':
                 excel_data = file1.read()
                 df = pd.read_excel(io.BytesIO(excel_data))
-                cursor = mysql.connection.cursor()
                 if list(df.columns) == desired_columns:
                     for row in df.values:
-                        query = 'Insert into campaign_details (Campaign_Type,Brand,Car,Details,Created_Date) VALUES("{}","{}","{}","{}","{}")'.format(row[0], row[1], row[2], row[3], datetime.datetime.now())
-                        cursor.execute(query)
-                        mysql.connection.commit()
-                    cursor.close()
+                        query = "Insert into campaign_details (Campaign_Type,Brand,Car,Details,CreatedDate) VALUES('{}','{}','{}','{}','{}')".format(row[0], row[1], row[2], row[3], datetime.datetime.now())
+                        QueryToDB(YuceDB,query)
                     flash("Kampanyalar başarılı bir şekilde kaydedildi!","success")
                     return redirect(url_for("index"))
                 else:
@@ -588,38 +585,28 @@ class odd_form(Form):
 @app.route("/odd", methods = ["GET", "POST"])
 @login_required
 def ODD():
-    cursor = mysql.connection.cursor()
-    def isData(year,quarter):
-            check_query = 'SELECT * FROM ODD where year={} and quarter="{}"'.format(year,quarter)
-            check_result = cursor.execute(check_query)
-            check_result=cursor.fetchall()
-            print(check_result)
-            if check_result != ():
-                return True
-            else:
-                return False
-    
-    def removeData(year,quarter):
-        query = 'DELETE FROM ODD WHERE year={} and quarter="{}"'.format(year, quarter)
-        cursor.execute(query)
-        mysql.connection.commit()
 
-    def saveDB(year,quarter,df):
-        headers=df.columns
-        numpy=df.to_numpy()
+    def removeData(year,quarter):
+        query = "DELETE FROM ODD WHERE year={} and [Quarter]='{}'".format(year, quarter)
+        QueryToDB(YuceDB,query)
+
+    def saveDB(year, quarter, df):
+        headers = df.columns
+        numpy = df.to_numpy()
         array_with_headers = np.vstack([headers, numpy])
-        i=2
-        while array_with_headers[i][0] !="TOPLAM":
-            x=1
-            while array_with_headers[0][x] !="TOPLAM":
-                row=[array_with_headers[i][0],array_with_headers[0][x],array_with_headers[i][x],array_with_headers[i][x+1]]
-                #new_array=np.append(new_array, row, axis = 0)
-                query = 'Insert into odd (Year,Quarter,City,Brand,Quantity, MarketShare, CreatedDate) VALUES({},"{}","{}","{}",{},{},"{}")'.format(year, quarter, row[0], row[1], row[2], row[3], datetime.datetime.now())
-                cursor.execute(query)
-                x=x+2
-            i=i+1
-        mysql.connection.commit()
-        cursor.close()   
+        new_array = []
+        i = 2
+        while array_with_headers[i][0] != "TOPLAM":
+            x = 1
+            while array_with_headers[0][x] != "TOPLAM":
+                row = [year, quarter, array_with_headers[i][0], array_with_headers[0][x], array_with_headers[i][x], array_with_headers[i][x + 1], datetime.datetime.now()]
+                new_array.append(tuple(row))
+                x = x + 2
+            i = i + 1
+
+        placeholders = ', '.join(['(?, ?, ?, ?, ?, ?, ?)'])
+        query = f"INSERT INTO odd (Year, Quarter, City, Brand, Quantity, MarketShare, CreatedDate) VALUES {placeholders}"
+        QueryToDBMany(YuceDB, query, values=new_array)
         return True
 
 
@@ -635,15 +622,15 @@ def ODD():
         name, extension = filename.split(".")
         if file1 :  # Check if a file was uploaded
             if extension=='xlsb':
-                if isData(year,quarter)==True:
-                    removeData(year,quarter)
-                else:
-                    excel_data = file1.read()
-                    df = pd.read_excel(io.BytesIO(excel_data))
-                    result=saveDB(year, quarter,df)
-                    if result==True:
-                        flash("ODD verileri başarılı bir şekilde kaydedildi!","success")
-                        return redirect(url_for("index"))
+                print("1")
+                removeData(year,quarter)
+                print("3")
+                excel_data = file1.read()
+                df = pd.read_excel(io.BytesIO(excel_data))
+                result=saveDB(year, quarter,df)
+                if result==True:
+                    flash("ODD verileri başarılı bir şekilde kaydedildi!","success")
+                    return redirect(url_for("index"))
             elif extension !='xlsb':
                 flash("Dosya uzantısını kontrol ediniz!","danger")
                 return redirect(url_for("index"))
