@@ -1,0 +1,26 @@
+{% include "includes/navbar.html" %}
+{% extends "layout.html" %}
+{% block body %}
+{% from "includes/formshelpers.html" import render_field %}
+<div class = "container" style="position:relative; background-color:#F1F2F2; padding:10px; border-radius:25px; opacity:1;">
+    <div style="margin-left:30px;">
+        <br>
+        <h3>ODD Verisini Yükleme</h3>
+        <br>
+        <hr style="margin-right:30px;">
+        <br>
+    </div>
+
+    <div style="display:flex; justify-content:center;">
+        <form method = "post" style="text-align:center;" enctype="multipart/form-data">
+            {{ render_field(form.year, class = "form-control") }}
+            {{ render_field(form.quarter, class = "form-control") }}
+            {{ render_field(form.file1, class = "form-control") }}
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary" style="background:#0E3A2F; color:#78FAAE; border-radius:10px; border-width:0px; font-weight:bold;">Yükle</button>
+        </form>
+    </div>
+</div>
+<br>
+{% endblock body %}

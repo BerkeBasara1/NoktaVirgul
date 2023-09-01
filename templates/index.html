@@ -59,6 +59,14 @@
             <br>
             <hr>
         {% endif %}
+        {% if session["departman"] == "Strateji ve Planlama" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/odd" style="color:#0E3A2F"><h3>&rarr; ODD Verisi Yükleme</h3></a>
+            <small>ODD verileri sisteme aktarılır.</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
     <br>
     </div>
 </div>

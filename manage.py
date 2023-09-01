@@ -12,6 +12,7 @@ from functools import wraps
 import io
 import pandas as pd
 import datetime
+import numpy as np
 
 from werkzeug.utils import secure_filename
 from main import SabahRaporuComplete
@@ -61,7 +62,7 @@ def login():
         if result >> 0:
             data = cursor.fetchone()
             real_password_sha = data["password"]
-            if password_entered == password_entered:
+            if sha256_crypt.verify(password_entered, real_password_sha):
                 session["logged_in"] = True
                 session["username"] = data["username"]
                 session["name"] = data["name"]
@@ -572,6 +573,84 @@ def Jato_RPA():
         else:
             flash("Bir sorunla karşılaşıldı, IT ile iletişime geçiniz!!","danger")
             pass    
+
+class odd_form(Form):
+    current_year = datetime.datetime.now().year
+    years = [(str(year), str(year)) for year in range(current_year, current_year - 10, -1)]
+    year=SelectField('Yıl', choices=years, validators=[validators.DataRequired()])
+
+    quarters = ['Q1','Q2','Q3', 'Q4']
+    quarter=SelectField('Çeyrek', choices=quarters, validators=[validators.DataRequired()])
+
+    file1 = FileField('ODD Dosyası', validators=[FileRequired()], render_kw={'style': 'width: 30ch; border-radius:10px; border-color:black; text-align:center'})
+
+
+@app.route("/odd", methods = ["GET", "POST"])
+@login_required
+def ODD():
+    cursor = mysql.connection.cursor()
+    def isData(year,quarter):
+            check_query = 'SELECT * FROM ODD where year={} and quarter="{}"'.format(year,quarter)
+            check_result = cursor.execute(check_query)
+            check_result=cursor.fetchall()
+            print(check_result)
+            if check_result != ():
+                return True
+            else:
+                return False
+    
+    def removeData(year,quarter):
+        query = 'DELETE FROM ODD WHERE year={} and quarter="{}"'.format(year, quarter)
+        cursor.execute(query)
+        mysql.connection.commit()
+
+    def saveDB(year,quarter,df):
+        headers=df.columns
+        numpy=df.to_numpy()
+        array_with_headers = np.vstack([headers, numpy])
+        i=2
+        while array_with_headers[i][0] !="TOPLAM":
+            x=1
+            while array_with_headers[0][x] !="TOPLAM":
+                row=[array_with_headers[i][0],array_with_headers[0][x],array_with_headers[i][x],array_with_headers[i][x+1]]
+                #new_array=np.append(new_array, row, axis = 0)
+                query = 'Insert into odd (Year,Quarter,City,Brand,Quantity, MarketShare, CreatedDate) VALUES({},"{}","{}","{}",{},{},"{}")'.format(year, quarter, row[0], row[1], row[2], row[3], datetime.datetime.now())
+                cursor.execute(query)
+                x=x+2
+            i=i+1
+        mysql.connection.commit()
+        cursor.close()   
+        return True
+
+
+    form = odd_form(request.form)
+    if request.method == "GET":
+        return render_template("odd.html", form=form)
+    elif request.method == "POST":
+        file1 = form.file1.data
+        file1 = request.files['file1']
+        year=form.year.data
+        quarter=form.quarter.data
+        filename = secure_filename(file1.filename)
+        name, extension = filename.split(".")
+        if file1 :  # Check if a file was uploaded
+            if extension=='xlsb':
+                if isData(year,quarter)==True:
+                    removeData(year,quarter)
+                else:
+                    excel_data = file1.read()
+                    df = pd.read_excel(io.BytesIO(excel_data))
+                    result=saveDB(year, quarter,df)
+                    if result==True:
+                        flash("ODD verileri başarılı bir şekilde kaydedildi!","success")
+                        return redirect(url_for("index"))
+            elif extension !='xlsb':
+                flash("Dosya uzantısını kontrol ediniz!","danger")
+                return redirect(url_for("index"))
+        else:
+            flash("Bir sorunla karşılaşıldı, IT ile iletişime geçiniz!","danger")
+            pass    
+
 
 # Logout işlemi
 @app.route("/logout")
