@@ -622,9 +622,7 @@ def ODD():
         name, extension = filename.split(".")
         if file1 :  # Check if a file was uploaded
             if extension=='xlsb':
-                print("1")
                 removeData(year,quarter)
-                print("3")
                 excel_data = file1.read()
                 df = pd.read_excel(io.BytesIO(excel_data))
                 result=saveDB(year, quarter,df)
