@@ -209,7 +209,7 @@ def PclPdfJob():
             
             
 
-            pdf_folder_job("pcl_pdf_pdfs")
+            pdf_folder_job()
             ortak_alan_path = r"Y:\YUCE AUTO GENEL\RPA"
             path_to_access = r"Y:\YUCE AUTO GENEL\RPA" + "\ ".replace(" ","") + dosya_adi
             new_folder_path = os.path.join(ortak_alan_path, dosya_adi)
@@ -218,7 +218,7 @@ def PclPdfJob():
             os.makedirs(new_folder_path)
             end_file = ortak_alan_path + r"\ ".replace(" ","") + dosya_adi
             for substr in correct_inputs_list:
-                search_and_copy_files("pdfs", end_file, substr)
+                search_and_copy_files(r"C:\-+-Users\-+-yuceappadmin\Desktop\-+-pdfs".replace("-+-",""), end_file, substr)
             
             amount_of_found_invoices = count_files_in_folder(ortak_alan_path + r"\ ".replace(" ","") + dosya_adi)
 
@@ -275,7 +275,7 @@ def RunGhostscript_in(dosya_path):
                     break
         except:
             break
-    pdf_folder_job("pdfs")
+    pdf_folder_job()
 
 # SSH Sabah Raporu Form
 class SSHSabahRaporuForm(Form):
