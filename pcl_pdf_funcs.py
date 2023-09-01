@@ -71,10 +71,8 @@ def rename_pdf(old_name, new_name):
     except FileExistsError:
         print(f"A file with the name '{new_name}' already exists.")
 
-def pdf_folder_job(folder_name):
-    try:
-        os.mkdir(folder_name)
-    except:pass
+def pdf_folder_job():
+    folder_name = r"C:\+-+Users\+-+yuceappadmin\+-+Desktop\+-+pdfs".replace("+-+","")
 
     pdf_files = [file for file in os.listdir() if file.endswith(".pdf")]
 
