@@ -171,7 +171,7 @@ def SSH_sabahraporu_complete(Turkuaz_username, Turkuaz_password, first_day_check
     conn = pymysql.connect(host='localhost', user='root', db='ya_rpa')
     cursor = conn.cursor()
     query = "INSERT INTO sshparca_data (Tarih, Day, Month, Year, OrijinalParcaSatisAdet, gun) VALUES ('{}', {}, {}, {}, {}, '{}');"
-    Month_tobe_inserted = today[3:5].lstrip("0")
+    Month_tobe_inserted = month
     query = query.format(last_day_worked, last_day_worked[:2], Month_tobe_inserted, last_day_worked[-4:], round(orijinal_parca_satisi_gun/1000), gun, last_day_worked)
 
     cursor.execute(query)
@@ -182,7 +182,7 @@ def SSH_sabahraporu_complete(Turkuaz_username, Turkuaz_password, first_day_check
     conn = pymysql.connect(host='localhost', user='root', db='ya_rpa')
     cursor = conn.cursor()
     query = "INSERT INTO sshparca_data2 (Tarih, day, month, year, servisgirisi) VALUES ('{}', {}, {}, {}, {});"
-    Month_tobe_inserted = today[3:5].lstrip("0")
+    Month_tobe_inserted = month
     query = query.format(last_day_worked, last_day_worked[:2], Month_tobe_inserted, last_day_worked[-4:], ServisGiris)
 
     cursor.execute(query)
