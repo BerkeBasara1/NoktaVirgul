@@ -34,3 +34,24 @@ def AssignDBContenttoListWithQuery(dbname, query):
     for row in cursor.execute(query):
         LinksinDB_list.append(row[0])
     return LinksinDB_list
+
+
+def QueryToDBMany(dbname, query, values=None):
+    connection = pypyodbc.connect(dbname)
+    cursor = connection.cursor()
+
+    try:
+        if values:
+            cursor.executemany(query, values)
+        else:
+            cursor.execute(query)
+
+        connection.commit()
+    except Exception as e:
+        connection.rollback()
+        raise e
+    finally:
+        cursor.close()
+        connection.close()
+
+
