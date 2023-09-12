@@ -90,7 +90,7 @@ class RegisterForm(Form):
     email = StringField("Email Adresi", validators = [validators.Email(message = "Lütfen Geçerli bir email adresi giriniz.")])
     password = PasswordField("Şifre:", validators=[validators.DataRequired(message = "Lütfen şifre giriniz."), validators.EqualTo(fieldname = "confirm", message = "Şifreniz uyuşmuyor.")])
     confirm = PasswordField("Şifre Doğrulama")
-    department = SelectField('Departman', choices=[('Bilgi Teknolojileri', 'Bilgi Teknolojileri'), ('Satış', 'Satış'), ('SSH', 'SSH'), ('Strateji ve Planlama', 'Strateji ve Planlama'), ('Ürün', 'Ürün'), ('İş Geliştirme', 'İş Geliştirme')])
+    department = SelectField('Departman', choices=[('Bilgi Teknolojileri', 'Bilgi Teknolojileri'), ('Satış', 'Satış'), ('SSH', 'SSH'), ('Strateji ve Planlama', 'Strateji ve Planlama'), ('Ürün', 'Ürün'), ('Müşteri Deneyimi', 'Müşteri Deneyimi') ,('İş Geliştirme', 'İş Geliştirme')])
 
 # Kullanıcı Kayıt Sayfası
 @app.route("/register", methods = ["GET", "POST"])
@@ -638,6 +638,22 @@ def ODD():
             flash("Bir sorunla karşılaşıldı, IT ile iletişime geçiniz!","danger")
             pass    
 
+# Müşteri Deneyimi Tahsis Excel 
+@app.route("/musteri_deneyimi_tahsis", methods = ["GET", "POST"])
+@login_required
+def musteri_deneyimi_tahsis():
+    return render_template("musteri_deneyimi_tahsis.html")
+
+
+#
+@app.route("/run_musteri_deneyimi_tahsis_func", methods = ["GET", "POST"])
+@login_required
+def run_mdtf():
+    from musteri_deneyimi_tahsis import excel_to_sql_MusteriDeneyimi
+
+    excel_to_sql_MusteriDeneyimi(r"Y:\MUSTERI DENEYIM YONETIMI\MUSTERI DENEYIM ORTAK\11-Mİ (SİLİNMEYECEK-ÖNEMLİ)\Yüce Auto Geçici Araç Tahsis Takip Listesi 2023.xlsx")
+    flash("Veriler excel dosyasından SQL DB'ye başarıyla aktarıldı.","success")
+    return redirect(url_for("index"))
 
 # Logout işlemi
 @app.route("/logout")

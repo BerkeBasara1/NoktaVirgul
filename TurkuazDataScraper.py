@@ -1,4 +1,4 @@
-from webdriver_manager.chrome import ChromeDriverManager
+#from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
 from datetime import datetime
@@ -11,8 +11,8 @@ from config import *
 def TurkuazDataReader(Turkuaz_username, Turkuaz_password):
     # Opens driver and directs to login page
     options = Options()
-    options.headless = False
-    driver = uc.Chrome(driver_executable_path=ChromeDriverManager().install(), options=options)
+    options.headless = True
+    driver = uc.Chrome(options=options)
     driver.get("https://turkuaz.dohas.com.tr/Admin/UILogin.aspx?ReturnUrl=%2f&__0186262C9018__=BQTQ4GMAmhTUYA%3d%3d__")
     time.sleep(1.5)
 

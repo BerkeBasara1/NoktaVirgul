@@ -43,7 +43,7 @@
             <br>
             <hr>
         {% endif %}
-        {% if session["departman"] == "Ürün" or session["departman"] == "Bilgi Teknolojileri" %}
+        {% if session["departman"] == "Bilgi Teknolojileri" %}
             <br>
             <a href="/urun_rpa" style="color:#0E3A2F"><h3>&rarr; Pazar verileri toplama otomasyonu</h3></a>
             <small>Otomotiv sektöründeki güncel fiyatları almak için kullanılan otomasyon. Eğer güncel verilerde değişim varsa Ürün departmanına bilgi geçer.</small>
@@ -63,6 +63,14 @@
             <br>
             <a href="/odd" style="color:#0E3A2F"><h3>&rarr; ODD Verisi Yükleme</h3></a>
             <small>ODD verileri sisteme aktarılır.</small>
+            <br>
+            <br>
+            <hr>
+        {% endif %}
+        {% if session["departman"] == "Müşteri Deneyimi" or session["departman"] == "Bilgi Teknolojileri" %}
+            <br>
+            <a href="/musteri_deneyimi_tahsis" style="color:#0E3A2F"><h3>&rarr; Geçici Araç Tahsis ExcelToDB</h3></a>
+            <small>Ortak alanda bulunan geçici araç verilerinin bulunduğu excel dosyası verilerini YuceDB'ye kaydeder.</small>
             <br>
             <br>
             <hr>
