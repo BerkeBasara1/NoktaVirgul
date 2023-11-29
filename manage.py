@@ -122,7 +122,7 @@ def register():
 
 # Anasayfa
 @app.route("/index")
-@login_required
+#@login_required
 def index():
     return render_template("index.html")
 
@@ -585,7 +585,7 @@ class odd_form(Form):
 
 
 @app.route("/odd", methods = ["GET", "POST"])
-@login_required
+#pip@login_required
 def ODD():
 
     def removeData(year,quarter):
@@ -593,24 +593,32 @@ def ODD():
         QueryToDB(YuceDB,query)
 
     def saveDB(year, quarter, df):
-        headers = df.columns
-        numpy = df.to_numpy()
-        array_with_headers = np.vstack([headers, numpy])
-        new_array = []
-        i = 2
-        while array_with_headers[i][0] != "TOPLAM":
-            x = 1
-            while array_with_headers[0][x] != "TOPLAM":
-                row = [year, quarter, array_with_headers[i][0], array_with_headers[0][x], array_with_headers[i][x], array_with_headers[i][x + 1], datetime.datetime.now()]
-                new_array.append(tuple(row))
-                x = x + 2
-            i = i + 1
+        try:
+            headers = df.columns
+            numpy = df.to_numpy()
+            array_with_headers = np.vstack([headers, numpy])
+            new_array = []
+            i = 2
+            while array_with_headers[i][0] != "TOPLAM":
+                x = 1
+                while array_with_headers[0][x] != "TOPLAM":
+                    row = [year, quarter, array_with_headers[i][0], array_with_headers[0][x], array_with_headers[i][x], array_with_headers[i][x + 1], datetime.datetime.now()]
+                    new_array.append(tuple(row))
+                    x = x + 2
+                i = i + 1
 
-        placeholders = ', '.join(['(?, ?, ?, ?, ?, ?, ?)'])
-        query = f"INSERT INTO odd (Year, Quarter, City, Brand, Quantity, MarketShare, CreatedDate) VALUES {placeholders}"
-        QueryToDBMany(YuceDB, query, values=new_array)
-        return True
-
+            placeholders = ', '.join(['(?, ?, ?, ?, ?, ?, ?)'])
+            query = f"INSERT INTO odd (Year, Quarter, City, Brand, Quantity, MarketShare, CreatedDate) VALUES {placeholders}"
+            # Assuming you have a function like QueryToDBMany to execute the query
+            QueryToDBMany(YuceDB, query, values=new_array)
+            return True
+        except pypyodbc.ProgrammingError as e:
+            error_message = str(e)
+            if 'Error converting data type nvarchar to float' in error_message:
+                flash("Uyarı: Virgül yerine nokta kullanmalısınız.", "warning")
+            else:
+                flash(f"Hata: {error_message}", "danger")
+            return False
 
     form = odd_form(request.form)
     if request.method == "GET":
@@ -618,25 +626,28 @@ def ODD():
     elif request.method == "POST":
         file1 = form.file1.data
         file1 = request.files['file1']
-        year=form.year.data
-        quarter=form.quarter.data
+        year = form.year.data
+        quarter = form.quarter.data
         filename = secure_filename(file1.filename)
         name, extension = filename.split(".")
-        if file1 :  # Check if a file was uploaded
-            if extension=='xlsb':
-                removeData(year,quarter)
+        if file1:  
+            if extension == 'xlsb':
+                removeData(year, quarter)
                 excel_data = file1.read()
                 df = pd.read_excel(io.BytesIO(excel_data))
-                result=saveDB(year, quarter,df)
-                if result==True:
-                    flash("ODD verileri başarılı bir şekilde kaydedildi!","success")
+                result = saveDB(year, quarter, df)
+                if result == True:
+                    flash("ODD verileri başarılı bir şekilde kaydedildi!", "success")
                     return redirect(url_for("index"))
-            elif extension !='xlsb':
-                flash("Dosya uzantısını kontrol ediniz!","danger")
-                return redirect(url_for("index"))
+                else:
+                    flash("ODD verileri kaydedilirken bir hata oluştu!", "danger")
+            elif extension != 'xlsb':
+                flash("Dosya uzantısını kontrol ediniz!", "danger")
         else:
-            flash("Bir sorunla karşılaşıldı, IT ile iletişime geçiniz!","danger")
-            pass    
+            flash("Bir sorunla karşılaşıldı, IT ile iletişime geçiniz!", "danger")
+
+    # Add a default return statement for other cases
+    return redirect(url_for("index"))   
 
 # Müşteri Deneyimi Tahsis Excel 
 @app.route("/musteri_deneyimi_tahsis", methods = ["GET", "POST"])
